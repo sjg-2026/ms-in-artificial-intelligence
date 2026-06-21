@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<!-- build: 2026-06-07T20-05Z -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MS in Applied AI · Amberton University — Program Dashboard</title>
+<script>
+  // Pre-paint theme: respect OS preference unless user toggles in-session.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  /* ===== Design Tokens ===== */
+  :root {
+    --text-primary: #1D1D1F;
+    --text-secondary: #6E6E73;
+    --text-interactive: #0066CC;
+    --text-error: #E30000;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FBFBFD;
+    --bg-tertiary: #F5F5F7;
+    --border-secondary: #D2D2D7;
+    --accent: #6E5BE6;
+    --accent-2: #2997FF;
+    --accent-3: #30D158;
+    --accent-4: #FF9F0A;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --maxw: 1200px;
+    --font: system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --text-primary: #F5F5F7;
+    --text-secondary: #86868B;
+    --text-interactive: #2997FF;
+    --text-error: #FF3037;
+    --bg-primary: #000000;
+    --bg-secondary: #161617;
+    --bg-tertiary: #1D1D1F;
+    --border-secondary: #424245;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Top nav ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 20px; }
+  .nav-brand { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+  .nav-brand .dot { color: var(--accent); }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none; font-size: 14px;
+    padding: 6px 12px; border-radius: 980px; transition: all .2s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+  .theme-btn {
+    border: 1px solid var(--border-secondary); background: var(--bg-tertiary);
+    color: var(--text-primary); width: 36px; height: 36px; border-radius: 50%;
+    cursor: pointer; font-size: 15px; display: grid; place-items: center; transition: all .2s;
+  }
+  .theme-btn:hover { border-color: var(--accent); }
+  @media (max-width: 820px) { .nav-links { display: none; } }
+
+  /* ===== Hero ===== */
+  .hero { position: relative; overflow: hidden; padding: 40px 0 32px; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+      radial-gradient(50% 50% at 90% 20%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500;
+    color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
+    padding: 6px 14px; border-radius: 980px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.5vw, 60px); line-height: 1.05; letter-spacing: -0.03em;
+    font-weight: 600; margin: 0; max-width: none;
+  }
+  .hero-banner { margin-bottom: 28px; }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p.lede { font-size: 20px; color: var(--text-secondary); max-width: 58ch; margin: 0 0 32px; }
+
+  /* two-column hero: copy left, smaller seal right */
+  .hero-grid { display:grid; grid-template-columns: 1.6fr 1fr; gap:40px; align-items:center; }
+  .hero-logo { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; }
+  .hero-seal-link { display:block; width:100%; max-width:200px; transition:transform .2s; }
+  .hero-seal-link:hover { transform:scale(1.03); }
+  .hero-logo img {
+    width:100%; max-width:200px; height:auto; display:block;
+    filter: drop-shadow(0 12px 40px rgba(216,106,68,0.28));
+    animation: sealIn .8s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes sealIn { from { opacity:0; transform: scale(.9) rotate(-6deg); } to { opacity:1; transform:none; } }
+  .hero-logo-loc { font-family: 'Georgia', 'Times New Roman', serif; font-style:italic; font-size:17px; font-weight:500; letter-spacing:.04em; color:#D86A44; }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap:8px; }
+    .hero-logo { order:-1; }
+    .hero-logo img { max-width:160px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-logo img { animation:none; } }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 980px;
+    font-size: 16px; font-weight: 500; text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    transition: transform .15s, opacity .2s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: .9; }
+  .btn-ghost { background: transparent; color: var(--text-interactive); border-color: var(--border-secondary); }
+  .btn-ghost:hover { background: var(--bg-tertiary); }
+
+  /* ===== Sections ===== */
+  section.block { padding: 34px 0; border-top: 1px solid var(--border-secondary); }
+  .sec-head { margin-bottom: 20px; }
+  .sec-kicker { font-size: clamp(22px, 2.8vw, 32px); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 8px; }
+  .sec-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .sec-sub { font-size: 18px; color: var(--text-secondary); max-width: none; margin: 0; }
+
+  /* ===== KPI cards ===== */
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 720px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .kpi-grid { grid-template-columns: 1fr; } }
+  .kpi {
+    background: var(--bg-secondary); border: 1px solid var(--border-secondary);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+    transition: transform .2s, border-color .2s;
+  }
+  .kpi:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .kpi .num { font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+  .kpi .num.big { color: var(--accent-3); }
+  .kpi-hero { border-color: color-mix(in srgb, var(--accent-3) 45%, var(--border-secondary)); }
+  .kpi-hero:hover { border-color: var(--accent-3); }
+  .kpi .lab { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+  .kpi .ksub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; opacity: .85; }
+  .kpi .ico { font-size: 22px; margin-bottom: 14px; opacity: .85; }
+
+  /* ===== generic card ===== */
+  .card {
+    background: var(--bg-secondary); border: 1px solid var(--border-secondary);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .pill { display:inline-block; font-size:12px; font-weight:500; padding:3px 10px; border-radius:980px;
+    background: var(--bg-tertiary); color: var(--text-secondary); border:1px solid var(--border-secondary); }
+
+  .badge-illus { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;
+    color: var(--accent-4); background: color-mix(in srgb, var(--accent-4) 14%, transparent);
+    padding:3px 9px; border-radius:980px; }
+
+  ul.clean { list-style:none; padding:0; margin:0; }
+  ul.clean li { padding:10px 0; border-bottom:1px solid var(--border-secondary); display:flex; gap:12px; align-items:flex-start; }
+  ul.clean li:last-child { border-bottom:none; }
+  ul.clean li .tick { color: var(--accent-3); font-weight:700; flex-shrink:0; }
+
+  footer.foot { padding: 48px 0; border-top:1px solid var(--border-secondary); color: var(--text-secondary); font-size:13px; }
+  footer.foot a { color: var(--text-interactive); }
+  footer.foot .ver { display:inline-block; margin-left:8px; vertical-align:middle; font-size:11px; font-weight:600;
+    letter-spacing:.03em; color:var(--text-secondary); background:var(--bg-tertiary);
+    border:1px solid var(--border-secondary); padding:2px 9px; border-radius:980px; }
+
+  /* ===== Curriculum ===== */
+  .track { margin-bottom: 28px; }
+  .track-head { display:flex; align-items:baseline; gap:12px; margin-bottom:14px; }
+  .track-head .bar { width:4px; height:22px; border-radius:4px; }
+  .track-head h3 { margin:0; font-size:20px; font-weight:600; }
+  .track-head .hrs { font-size:13px; color:var(--text-secondary); }
+  .track-head .blurb { font-size:14px; color:var(--text-secondary); margin-left:auto; max-width:42ch; text-align:right; }
+  @media (max-width:720px){ .track-head .blurb { display:none; } }
+  .course-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  @media (max-width:900px){ .course-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:560px){ .course-grid { grid-template-columns: 1fr; } }
+  .course {
+    background: var(--bg-secondary); border:1px solid var(--border-secondary);
+    border-radius: var(--radius-sm); padding:16px; position:relative; overflow:hidden;
+    transition: transform .18s, border-color .18s, box-shadow .18s; cursor:default;
+  }
+  .course::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--g-color, var(--accent)); }
+  .course:hover { transform: translateY(-3px); border-color: var(--g-color, var(--accent)); box-shadow: var(--shadow); }
+  .course .code { font-size:12px; font-weight:600; color: var(--g-color, var(--accent)); letter-spacing:.02em; }
+  .course .ctitle { font-size:15px; font-weight:600; margin:4px 0 8px; line-height:1.3; }
+  .course .cnote { font-size:13px; color:var(--text-secondary); margin:0 0 12px; }
+  .course .ctags { display:flex; flex-wrap:wrap; gap:5px; }
+  .ctag { font-size:10.5px; font-weight:500; padding:2px 8px; border-radius:980px;
+    border:1px solid var(--border-secondary); color:var(--text-secondary); }
+  .course .seqbadge { position:absolute; top:14px; right:14px; font-size:11px; color:var(--text-secondary); }
+  .badge-done { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+    letter-spacing:.02em; color: var(--accent-3); background: color-mix(in srgb, var(--accent-3) 14%, transparent);
+    padding:3px 9px; border-radius:980px; margin:6px 0 2px; }
+  .badge-done .tick { font-weight:700; }
+  .course.is-done { border-color: color-mix(in srgb, var(--accent-3) 45%, var(--border-secondary)); }
+  .course.is-done::before { background: var(--accent-3); }
+  .badge-progress { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+    letter-spacing:.02em; color: var(--accent-4); background: color-mix(in srgb, var(--accent-4) 14%, transparent);
+    padding:3px 9px; border-radius:980px; margin:6px 0 2px; }
+  .badge-progress .tick { font-size:9px; }
+  /* certificate table */
+  table.cert-table td, table.cert-table th { text-align:left; padding:12px 14px; vertical-align:middle; }
+  table.cert-table th:nth-child(3), table.cert-table td.cert-cr,
+  table.cert-table th:nth-child(4), table.cert-table td.cert-status { text-align:center; }
+  table.cert-table .cert-code { font-weight:600; white-space:nowrap; }
+  table.cert-table .cert-cr { color:var(--text-secondary); white-space:nowrap; }
+  .cert-planned { display:inline-block; font-size:11px; font-weight:600; color:var(--text-secondary);
+    background:var(--bg-tertiary); border:1px solid var(--border-secondary); padding:2px 9px; border-radius:980px; }
+  /* collapsible disclosure (cost section) */
+  details.disclose { border:1px solid var(--border-secondary); border-radius:var(--radius); background:var(--bg-secondary); overflow:hidden; }
+  .disclose-sum { display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;
+    padding:16px 20px; font-size:15px; font-weight:600; color:var(--text-primary); list-style:none; user-select:none; }
+  .disclose-sum::-webkit-details-marker { display:none; }
+  .disclose-sum:hover { background:var(--bg-tertiary); }
+  .disclose-chev { font-size:18px; color:var(--text-secondary); transition:transform .2s; }
+  details.disclose[open] .disclose-chev { transform:rotate(180deg); }
+  .disclose-body { padding:0 20px 20px; }
+  @media (prefers-reduced-motion: reduce) { .disclose-chev { transition:none; } }
+  .course.is-progress { border-color: color-mix(in srgb, var(--accent-4) 45%, var(--border-secondary)); }
+  .course.is-progress::before { background: var(--accent-4); }
+
+  /* expandable course detail */
+  .course-toggle {
+    display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+    margin-top:12px; padding:9px 12px; border:1px solid var(--border-secondary); border-radius:10px;
+    background:var(--bg-tertiary); color:var(--text-primary); font-family:var(--font);
+    font-size:12.5px; font-weight:500; cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .course-toggle:hover { border-color:var(--g-color, var(--accent)); }
+  .course-toggle .ct-chev { transition:transform .2s; color:var(--text-secondary); font-size:14px; }
+  .course-toggle.open .ct-chev { transform:rotate(180deg); }
+  .course-toggle.open { border-color:var(--g-color, var(--accent)); background:transparent; }
+  .course-detail { margin-top:12px; }
+  .comp-list { list-style:none; margin:0; padding:0; }
+  .comp-list li { font-size:12.5px; color:var(--text-secondary); line-height:1.45;
+    padding:7px 0 7px 20px; position:relative; border-bottom:1px solid var(--border-secondary); }
+  .comp-list li:last-child { border-bottom:none; }
+  .comp-list li::before { content:"✓"; position:absolute; left:0; top:7px;
+    color:var(--g-color, var(--accent)); font-weight:700; }
+  .course-link { display:inline-block; margin-top:10px; font-size:12.5px; font-weight:500;
+    color:var(--text-interactive); text-decoration:none; }
+  .course-link:hover { text-decoration:underline; }
+
+  /* sequencing legend */
+  .seq-legend { display:flex; gap:18px; flex-wrap:wrap; margin:0 0 28px; font-size:13px; color:var(--text-secondary); }
+  .seq-legend .step { display:flex; align-items:center; gap:7px; }
+  .seq-legend .dotn { width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
+    font-size:11px; font-weight:600; background:var(--bg-tertiary); border:1px solid var(--border-secondary); color:var(--text-primary); }
+
+  /* ===== Skills matrix heatmap ===== */
+  .matrix-scroll { overflow-x:auto; border:1px solid var(--border-secondary); border-radius:var(--radius); }
+  table.matrix { border-collapse:collapse; width:100%; min-width:680px; font-size:13px; }
+  table.matrix th, table.matrix td { padding:0; text-align:center; }
+  table.matrix thead th { position:sticky; top:0; background:var(--bg-secondary); padding:14px 8px;
+    font-weight:600; font-size:12px; color:var(--text-primary); border-bottom:1px solid var(--border-secondary); vertical-align:bottom; }
+  table.matrix tbody th { text-align:left; padding:10px 14px; font-weight:500; background:var(--bg-secondary);
+    border-bottom:1px solid var(--border-secondary); white-space:nowrap; position:sticky; left:0; z-index:1; }
+  table.matrix tbody th small { color:var(--text-secondary); font-weight:400; }
+  .matrix-link { color:var(--text-interactive); text-decoration:none; font-weight:600; }
+  .matrix-link:hover { text-decoration:underline; }
+  table.matrix .m-stat { display:inline-block; margin-top:5px; font-size:10px; font-weight:600;
+    letter-spacing:.02em; padding:1px 7px; border-radius:980px; white-space:nowrap; }
+  table.matrix .m-stat.done { color:var(--accent-3); background:color-mix(in srgb,var(--accent-3) 14%,transparent); }
+  table.matrix .m-stat.prog { color:var(--accent-4); background:color-mix(in srgb,var(--accent-4) 14%,transparent); }
+  table.matrix .m-stat.plan { color:var(--text-secondary); background:var(--bg-tertiary); border:1px solid var(--border-secondary); }
+  .cell { width:34px; height:34px; margin:5px auto; border-radius:8px; }
+  table.matrix td { border-bottom:1px solid var(--border-secondary); }
+  .heat-legend { display:flex; align-items:center; gap:10px; margin-top:14px; font-size:13px; color:var(--text-secondary); }
+  .heat-swatch { display:flex; gap:3px; }
+  .heat-swatch span { width:22px; height:14px; border-radius:3px; }
+
+  /* ===== Charts ===== */
+  .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:820px){ .chart-grid { grid-template-columns:1fr; } }
+  .chart-card { background:var(--bg-secondary); border:1px solid var(--border-secondary);
+    border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); }
+  .chart-card h4 { margin:0 0 4px; font-size:16px; font-weight:600; }
+  .chart-card .src { font-size:11px; color:var(--text-secondary); margin:0 0 14px; }
+  .chart-box { position:relative; height:260px; }
+
+  /* stat strip */
+  .stat-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+  @media (max-width:760px){ .stat-strip { grid-template-columns:1fr; } }
+  .stat-big { background:var(--bg-secondary); border:1px solid var(--border-secondary); border-radius:var(--radius);
+    padding:24px; box-shadow:var(--shadow); }
+  .stat-big .v { font-size:34px; font-weight:600; letter-spacing:-0.02em;
+    background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-big .d { font-size:14px; color:var(--text-primary); margin-top:6px; font-weight:500; }
+  .stat-big .s { font-size:11px; color:var(--text-secondary); margin-top:8px; }
+  .stat-big .s a { color:var(--text-interactive); }
+
+  /* career cards */
+  .career-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  @media (max-width:980px){ .career-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .career-grid { grid-template-columns:1fr; } }
+  .career { background:var(--bg-secondary); border:1px solid var(--border-secondary); border-radius:var(--radius-sm);
+    padding:20px; text-align:center; transition:transform .18s, border-color .18s; }
+  .career:hover { transform:translateY(-3px); border-color:var(--accent); }
+  .career .ci { font-size:26px; color:var(--accent); margin-bottom:10px; }
+  .career .cr { font-weight:600; font-size:15px; margin-bottom:6px; }
+  .career .cb { font-size:13px; color:var(--text-secondary); }
+
+  /* comparison table */
+  table.cmp { width:100%; border-collapse:collapse; font-size:14px; }
+  table.cmp th, table.cmp td { padding:14px 16px; text-align:left; border-bottom:1px solid var(--border-secondary); }
+  table.cmp thead th { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  table.cmp tbody tr.me { background:color-mix(in srgb, var(--accent) 8%, transparent); }
+  table.cmp td.hl { font-weight:600; color:var(--accent); }
+
+  .note-bar { font-size:13px; color:var(--text-secondary); background:var(--bg-tertiary);
+    border:1px dashed var(--border-secondary); border-radius:var(--radius-sm); padding:12px 16px; margin-top:24px; }
+</style>
+<!-- ===== Amberton orange brand palette (light + dark) ===== -->
+<style>
+  :root { --accent: #C85A38; --accent-2: #E0794F; }
+  [data-theme="dark"] { --accent: #E8895F; --accent-2: #F0A57E; }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent), #E8A04A);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero::before {
+    background:
+      radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+      radial-gradient(50% 50% at 90% 20%, rgba(232,160,74,0.18), transparent 70%);
+  }
+  .eyebrow { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .btn-primary { background: var(--accent); }
+  /* Secondary CTA: solid black w/ white text (light) — invert in dark for contrast */
+  .btn-true-value { background:#000; color:#fff; border-color:#000; }
+  .btn-true-value:hover { background:#1d1d1f; color:#fff; }
+  [data-theme="dark"] .btn-true-value { background:#fff; color:#000; border-color:#fff; }
+  [data-theme="dark"] .btn-true-value:hover { background:#f5f5f7; color:#000; }
+</style>
+</head>
+<body>
+  <!-- ============ APP MOUNTS HERE ============ -->
+  <main id="app"></main>
+
+  <!-- Chart.js — vendored locally (same-origin) so it loads even when external CDNs are blocked on restrictive hosting networks. CDN kept only as a last-resort fallback. -->
+  <script src="assets/chart.umd.min.js"
+          onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';document.head.appendChild(s);"></script>
+
+  <!-- ============ DATA + LOGIC ============ -->
+  <script>
+    /* =========================================================
+       PROGRAM_DATA — single source of truth.
+       ⬇ SWAP REAL SYLLABI / COURSE DETAILS HERE LATER ⬇
+       Source: amberton.edu MS Applied AI program page (fetched).
+       ========================================================= */
+    const PROGRAM_DATA = {
+      meta: {
+        name: "Master of Science in Applied Artificial Intelligence",
+        school: "Amberton University",
+        format: "100% Online",
+        creditHours: 36,
+        costPerCredit: 325,
+        courseLengthWeeks: 10,
+        sessionsPerYear: 4,
+        nextStart: "2026-06-13",
+        sourceUrl: "https://amberton.edu/degree-programs/master-of-science-applied-artificial-intelligence",
+        version: "v5",
+        repoUrl: "https://github.com/sjg-2026/ms-in-artificial-intelligence"
+      },
+
+      mission: "Graduate degree for leaders and innovators in an increasingly AI-driven business landscape. Blending academic theory with hands-on practice — including access to exclusive AI Testing Environments — enabling graduates to lead in AI adoption, not just observe it.",
+
+      audience: [
+        "Professionals choosing to grow, even while carrying a full career",
+        "Leaders willing to invest their evenings and weekends in mastery",
+        "People who want their effort to mean something to their team",
+        "Dedicated learners balancing work, life, and a commitment to better"
+      ],
+
+      outcomes: [
+        "Carry AI-driven solutions back to the people who depend on me",
+        "Lead AI adoption with confidence, judgment, and integrity",
+        "Champion ethical, responsible AI my organization can trust",
+        "Turn hard-won analytical skill into better decisions for my team",
+        "Become the colleague others look to as the world shifts to AI"
+      ],
+
+      // ===== SKILLS (competency taxonomy) =====
+      // id used to map courses → skills in the matrix.
+      skills: [
+        { id: "strategy",  label: "AI Strategy & Innovation", color: "var(--accent)" },
+        { id: "analytics", label: "Applied & Predictive Analytics", color: "var(--accent-2)" },
+        { id: "mlfound",   label: "ML / AI Foundations", color: "var(--accent-3)" },
+        { id: "ethics",    label: "Ethical & Responsible AI", color: "var(--accent-4)" },
+        { id: "leader",    label: "Leadership & Communication", color: "#FF6482" },
+        { id: "research",  label: "Research & Decision Methods", color: "#64D2FF" }
+      ],
+
+      // ===== COURSES =====
+      // group: required | core | elective
+      // skills: array of skill ids developed (PLACEHOLDER weighting — refine w/ syllabi)
+      // seq: suggested sequencing tier (1=start, 4=finish)
+      courses: [
+        // I. Required Graduate Studies (6 hrs)
+        { code: "RGS6035", title: "Theory and Application of Research Methods", group: "required", credits: 3, seq: 1, skills: ["research","analytics"], note: "Foundation in evidence-based inquiry.", status: "completed", completedVia: "Transfer credit", term: "Transferred",
+          url: "https://amberton.edu/courses/theory-and-application-of-research-methods/",
+          competencies: [
+            "Describing and discussing the research process and the scientific method",
+            "Locating unsolved research problems in areas of interest",
+            "Listing the components of a sound research plan",
+            "Writing hypotheses and research questions tied to a problem",
+            "Identifying aspects of research that raise ethical questions",
+            "Conducting a review of research literature on a topic",
+            "Spotting design features that suggest bias or contamination",
+            "Selecting and applying appropriate sampling procedures",
+            "Defining types of validity and reliability and their effects",
+            "Constructing questionnaires using established guidelines",
+            "Evaluating threats to internal and external validity",
+            "Creating experimental designs with control groups and pre/posttests",
+            "Writing in correct grammar and APA format",
+            "Locating and using appropriate data sources"
+          ] },
+        { code: "RGS6036", title: "Ethics for Decision Making", group: "required", credits: 3, seq: 1, skills: ["ethics","leader"], note: "Ethical reasoning for organizational decisions.", status: "inProgress", term: "Summer 2026",
+          url: "https://amberton.edu/courses/ethics-for-decision-making/",
+          competencies: [
+            "Examining various ethical theories and defining key terms",
+            "Identifying the variables underlying one's ethical beliefs",
+            "Investigating how relationships influence ethical decisions",
+            "Analyzing decision-making methodologies and techniques",
+            "Exploring how ethics relates to a specific culture",
+            "Evaluating reasons for accepting or rejecting theories of conduct",
+            "Applying ethical theories to business and personal experience",
+            "Describing the role of experience and perception in ethics",
+            "Examining the multidimensional nature of ethical decision-making",
+            "Analyzing how norms, law, and religion shape ethics",
+            "Applying methods to discern others' ethical influences",
+            "Demonstrating ethical practices for real-world issues"
+          ] },
+
+        // II. Major Requirements (18 hrs)
+        { code: "MGT5765", title: "Artificial Intelligence Essentials", group: "core", credits: 3, seq: 1, skills: ["mlfound","strategy"], note: "Core AI concepts and capabilities.", term: "2026",
+          url: "https://amberton.edu/courses/mgt5765-artificial-intelligence-essentials/",
+          competencies: [
+            "Differentiating between AI, machine learning, and industry-specific AI applications.",
+            "Evaluating AI's impact across business, healthcare, education, and operations.",
+            "Identifying ethical considerations, economic factors, and strategic implications in AI adoption.",
+            "Applying AI tools to analyze and interpret data-driven decision-making.",
+            "Utilizing AI-powered automation to enhance business and organizational processes.",
+            "Assessing case studies showcasing successful AI applications in different industries.",
+            "Experimenting with AI-driven tools such as chatbots, recommendation systems, and predictive analytics.",
+            "Developing a hands-on understanding of AI limitations and current technological constraints.",
+            "Formulating strategic recommendations for integrating AI into professional settings.",
+            "Creating AI-driven projects relevant to marketing, HR, supply chain, and Texas industries.",
+            "Synthesizing interdisciplinary AI applications for broader innovation and efficiency.",
+            "Conducting benchmarking analysis on AI adoption across industries.",
+            "Designing AI-driven solutions tailored to specific business or research challenges.",
+            "Evaluating the evolving role of AI governance, regulations, and ethical AI frameworks.",
+            "Developing and presenting an AI strategy demonstrating advanced problem-solving and implementation skills."
+          ] },
+        { code: "MGT5710", title: "Applied AI for Business", group: "core", credits: 3, seq: 2, skills: ["strategy","mlfound","analytics"], note: "Translating AI into business value.", term: "2026",
+          url: "https://amberton.edu/courses/mgt5710-applied-artificial-intelligence-for-business/",
+          competencies: [
+            "Differentiating between AI, Machine Learning, and Big Data.",
+            "Evaluating the effectiveness of AI-driven business strategies.",
+            "Assessing the ethical implications and risks of AI implementation in business.",
+            "Discussing the current applications of AI in business.",
+            "Describing the historical development and key milestones in AI.",
+            "Explaining the types of AI and their applications in business.",
+            "Analyzing business applications across departments.",
+            "Synthesizing customer feedback and market data to enhance AI applications.",
+            "Evaluating the impact of AI on marketing, finance, and operations.",
+            "Presenting AI strategies effectively to stakeholders.",
+            "Assessing the future of AI in business.",
+            "Identifying AI models to solve specific business problems.",
+            "Formulating strategies for AI-driven business transformation.",
+            "Developing a portfolio approach for AI project management.",
+            "Researching current trends and advancements in AI for business."
+          ] },
+        { code: "MGT6460", title: "Applied Business Analytics", group: "core", credits: 3, seq: 2, skills: ["analytics","research"], note: "Data-driven business analysis.", term: "2026",
+          url: "https://amberton.edu/courses/applied-business-analytics/",
+          competencies: [
+            "Identifying and evaluating influential literature relevant to Business Analytics topics.",
+            "Synthesizing and applying universal ethical principles to Business Analytics.",
+            "Identifying, evaluating, and applying Business Analytics principles and techniques.",
+            "Producing valuable insights for decision-making from internal and external data.",
+            "Engaging stakeholders by balancing decision-support needs against data validity.",
+            "Managing the challenges associated with data science personnel and resources.",
+            "Applying stakeholder feedback to prioritize and improve future applications.",
+            "Applying Business Analytics best practices for informed decision-making.",
+            "Cultivating an environment of transparency, trust, and high performance.",
+            "Producing and maintaining an evolving Business Analytics plan end-to-end.",
+            "Discussing evidence-based learning (inspection and adaptation).",
+            "Integrating continuous quality improvement into Business Analytics."
+          ] },
+        { code: "MGT6785", title: "Applied Predictive Analytics", group: "core", credits: 3, seq: 3, skills: ["analytics","mlfound"], note: "Forecasting and predictive modeling.", term: "2027",
+          url: "https://amberton.edu/courses/mgt6785-applied-predictive-analytics/",
+          competencies: [
+            "Defining predictive analytics",
+            "Distinguishing supervised from unsupervised learning",
+            "Recognizing differences between parametric and nonparametric models",
+            "Understanding common obstacles and challenges in predictive analytics",
+            "Describing why understanding and cleansing data matters before analysis",
+            "Running and interpreting a principal component analysis using software",
+            "Comparing clustering versus classification algorithms",
+            "Running and interpreting a k-means algorithm using software",
+            "Comparing linear and logistic regression",
+            "Explaining decision tree results and their implications",
+            "Running and interpreting regression analysis using software",
+            "Running and interpreting a k-NN analysis using software"
+          ] },
+        { code: "MGT5790", title: "AI Driven Innovation and Strategy", group: "core", credits: 3, seq: 3, skills: ["strategy","leader"], note: "Innovation strategy in AI-led markets.", term: "2026",
+          url: "https://amberton.edu/courses/mgt5790-ai-driven-innovation-strategy/",
+          competencies: [
+            "Explaining the core concepts of AI-driven innovation and strategy in business environments.",
+            "Utilizing Amberton's AI testing environment to develop AI-powered solutions for decision-making.",
+            "Identifying ethical considerations and governance issues related to AI adoption.",
+            "Applying AI models to enhance efficiency, automation, and competitive advantage.",
+            "Analyzing real-world AI applications in technology, finance, and entrepreneurship.",
+            "Developing AI-driven strategies for workforce development and industry leadership.",
+            "Creating, testing, and refining AI chatbots and automation tools for business.",
+            "Evaluating AI's impact on digital transformation and the business landscape.",
+            "Formulating actionable recommendations for AI adoption in organizations.",
+            "Demonstrating competency in AI-enhanced project management tools.",
+            "Synthesizing interdisciplinary AI applications for innovation and efficiency.",
+            "Conducting benchmarking analysis on AI adoption across industries.",
+            "Designing AI-driven solutions tailored to specific business challenges.",
+            "Evaluating AI governance, regulations, and ethical AI frameworks.",
+            "Developing and presenting an AI strategy demonstrating advanced problem-solving.",
+            "Integrating AI tools to enhance collaboration and knowledge management.",
+            "Critically assessing the limitations, biases, and interpretability of AI models."
+          ] },
+        { code: "COM5469", title: "Leadership Communication", group: "core", credits: 3, seq: 4, skills: ["leader"], note: "Leading and communicating change.", status: "inProgress", term: "Summer 2026",
+          url: "https://amberton.edu/courses/com5469-leadership-communication/",
+          competencies: [
+            "Identifying and examining the communication traits of a successful manager.",
+            "Recommending ways to build stronger management–employee relationships.",
+            "Proposing how communication personalities affect an organization.",
+            "Adapting one's leadership style to the organizational environment.",
+            "Adapting one's communication style to workplace relationships.",
+            "Comparing managerial theories to determine strengths and weaknesses.",
+            "Devising strategies to motivate and influence employees.",
+            "Exploring how attitudes influence one's work.",
+            "Discussing how transformational and charismatic leadership influence others.",
+            "Analyzing the bases of power and strategies to increase influence.",
+            "Predicting how manager communication improves employee contributions.",
+            "Assessing sources of conflict and communication strategies to resolve them.",
+            "Exploring how ethics affects communication in the workplace.",
+            "Researching topics relevant to management communication.",
+            "Applying and critiquing managerial theories against one's own style."
+          ] },
+
+        // III. Electives — selected graduate 5000/6000 courses (12 hrs / choose 4)
+        { code: "MGT6705", title: "Strategic Innovation & Leadership", group: "elective", credits: 3, seq: 4, skills: ["strategy", "leader"], note: "Leading innovation and turning ideas into impact.", term: "2027",
+          url: "https://amberton.edu/courses/innovation/",
+          competencies: [
+            "Evaluating the importance of adapting to today’s marketplace challenges and fostering an innovative organization.",
+            "Differentiating between various models and types of innovation.",
+            "Understanding the importance of brainstorming new innovative ideas.",
+            "Understanding the process of innovation implementation.",
+            "Appraising the role of innovation teams in driving organizational success.",
+            "Evaluating the concept and global impact of reverse innovation.",
+            "Understanding Design Thinking and Lean methodologies to develop innovative solutions that meet customer needs and drive business value.",
+            "Justifying the role of ethics in innovation processes and decision-making.",
+            "Evaluating the importance of sustainability in driving long-term innovation.",
+            "Analyzing how demographics and market forces drive innovation.",
+            "Understanding how innovation helps grow and sustain a business.",
+            "Formulating strategies to transform creative ideas into actionable initiatives.",
+            "Critiquing the concept of social innovation and its impact on society.",
+            "Examining how organizational culture influences innovation initiatives."
+          ] },
+        { code: "MKT6210", title: "Marketing Management", group: "elective", credits: 3, seq: 4, skills: ["strategy", "analytics"], note: "Strategic, data-driven marketing management.", status: "completed", completedVia: "Transfer credit", term: "Transferred",
+          url: "https://amberton.edu/courses/marketing-management/",
+          competencies: [
+            "Developing and evaluating a comprehensive marketing business strategy and plan.",
+            "Understanding the discipline of marketing management and what it entails.",
+            "Defining and articulating the new realities of marketing in the current competitive environment.",
+            "Understanding the concept of “value chain” including creation and delivery of value.",
+            "Forecasting and measuring market demand, including the use of marketing analytics.",
+            "Analyzing and researching marketing opportunities through various analytical tools, including evaluating competitors and their marketing strategies.",
+            "Understanding the processes involved in capturing market insights and collecting market information, including the role of market research in these processes.",
+            "Evaluating the concept, structure, and use of marketing information systems.",
+            "Describing the processes involved in identifying and evaluating market segments, selecting target markets, and developing market positions.",
+            "Evaluating the value of customer loyalty through measuring customer lifetime value (CLV) and customer relationship management (CRM).",
+            "Designing integrated, multichannel marketing communications including messaging across advertising, sales promotion, personal selling, social media, and publicity.",
+            "Understanding the advantages of holistic, database-driven integrated marketing.",
+            "Understanding the issues involved in global marketing and their resulting impact.",
+            "Formulating and evaluating the effectiveness and return on investment (ROI) derived from proposed or implemented marketing campaigns."
+          ] },
+        { code: "MGT5203", title: "Operations Management", group: "elective", credits: 3, seq: 4, skills: ["analytics", "strategy"], note: "Operations, supply chain, and process excellence.", status: "completed", completedVia: "Transfer credit", term: "Transferred",
+          url: "https://amberton.edu/courses/operations-management-2/",
+          competencies: [
+            "Analyzing operational processes in manufacturing and service organizations.",
+            "Identifying organizational theories in operations management.",
+            "Developing product and process operational strategies at the corporate and global level.",
+            "Applying forecasting techniques to operations management.",
+            "Applying total quality management concepts to operations management.",
+            "Applying statistical process control methods to production forecasting.",
+            "Applying statistical process control methods to financial budgets.",
+            "Developing production schedules and budgets.",
+            "Analyzing materials management programs.",
+            "Developing statistical processes for analyzing operating performance and profitability measures.",
+            "Developing location analysis techniques derived from sales, warehouse, and transportation requirements.",
+            "Translating organizational business plans into detailed production schedules.",
+            "Researching current trends and issues in operations management.",
+            "Analyzing how supply change management influences efficiency and productivity of operations and techniques to evaluate supply chain challenges."
+          ] },
+        { code: "ECO6140", title: "Managerial Economics", group: "elective", credits: 3, seq: 4, skills: ["analytics", "research"], note: "Economic analysis for managerial decisions.", status: "completed", completedVia: "Transfer credit", term: "Transferred",
+          url: "https://amberton.edu/courses/managerial-economics/",
+          competencies: [
+            "Discussing the economics of effective management.",
+            "Discussing the nature of supply and demand.",
+            "Describing the role of supply and demand in organizational behavior.",
+            "Recognizing the importance and nature of profits.",
+            "Using the elasticity concept as a tool of managerial analysis.",
+            "Discussing the relationship among price, price elasticity of demand, and changes in total revenue.",
+            "Describing the marginal productivity theory of labor and its implications for effectively utilizing human resources in an enterprise.",
+            "Relating the implications of production theory for cost theory.",
+            "Distinguishing between returns to a variable factor, returns to scale, and returns to scope.",
+            "Distinguishing between opportunity costs and historical costs.",
+            "Analyzing various economic factors that influence decision making by an organization.",
+            "Discussing the influence of market structure on a firm’s behavior and performance.",
+            "Describing the model of perfect competition and its role as a benchmark in market structure and analysis.",
+            "Discussing the nature of monopoly, monopolistic competition, and oligopoly."
+          ] }
+      ],
+
+      electiveRule: "Choose 12 hrs (4 courses) from graduate-level 5000/6000 courses.",
+
+      groups: {
+        required: { label: "Required Graduate Studies", hrs: 6, blurb: "Where the journey begins — the rigor and integrity that ground everything I'll build.", color: "var(--accent-3)" },
+        core:     { label: "Major Requirements", hrs: 18, blurb: "The heart of the climb: from first principles to leading real change with confidence.", color: "var(--accent)" },
+        elective: { label: "Electives", hrs: 12, blurb: "My path, my choice — shaping the journey around the difference I want to make.", color: "var(--accent-2)" }
+      },
+
+      // ===== CAREER PATHS the degree prepares for =====
+      careers: [
+        { role: "Agentic AI Engineer", icon: "🤖", blurb: "Design and orchestrate autonomous agents that plan, reason, and act." },
+        { role: "Machine Learning Engineer", icon: "🧠", blurb: "Build, train, and ship models from prototype to production." },
+        { role: "MLOps / AI Platform Engineer", icon: "⚙️", blurb: "Automate the pipelines, deployment, and monitoring that keep AI running." },
+        { role: "Data Engineer", icon: "🗄️", blurb: "Architect the data foundations that power every model and decision." },
+        { role: "Applied AI / LLM Engineer", icon: "🚀", blurb: "Fine-tune, evaluate, and integrate LLMs into real products." }
+      ],
+
+      // ===== GRADUATE CERTIFICATE (stackable credential) =====
+      // Source: APPLIED-ARTIFICIAL-INTELLIGENCE-GRADUATE-2025-II.pdf (Amberton)
+      certificate: {
+        name: "Graduate Certificate in Applied Artificial Intelligence (AI)",
+        hours: 12,
+        overview: "The Graduate Certificate in Applied Artificial Intelligence is ideal for Amberton students who desire to enhance their personal and workplace influence. The curriculum focuses on the fundamental skills necessary to understand and convey the appropriate use of artificial intelligence (AI) in professional environments. This certificate enables the student to display professionalism, emotional intelligence, and other career-building skills — including communication, team building, time management, conflict resolution, adaptability, critical thinking, work ethic, problem-solving, and leadership.",
+        courses: ["MGT5710", "MGT5765", "MGT5790", "COM5469"],
+        note: "No graduate credit will be awarded if MGT5710, MGT5765, MGT5790, or COM5469 have already been successfully completed.",
+        footnote: "Can be earned as a stand-alone certificate of study or in conjunction with a degree program.",
+        sourceUrl: "https://amberton.edu/wp-content/uploads/2025/09/APPLIED-ARTIFICIAL-INTELLIGENCE-GRADUATE-2025-II.pdf"
+      },
+
+      // ===== VALUE-PROP STATS =====
+      // ⬇ Populated by background research — figures are ILLUSTRATIVE until cited. ⬇
+      stats: { ready: false, items: [] }
+    };
+
+    /* =========================================================
+       VALUE / ORGANIZATIONAL-IMPACT DATA  ⬇ EDIT FIGURES + SOURCES HERE ⬇
+       Framed around the value AI-fluent LEADERS deliver to the
+       ORGANIZATION — not personal earnings. Unverified figures
+       are flagged illus:true and badged "Illustrative" in the UI.
+       ========================================================= */
+    const VALUE = {
+      headline: [
+        { v: "86%", d: "of employers expect AI to transform their business by 2030", s: "WEF Future of Jobs Report 2025", url: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/", illus: false },
+        { v: "72%", d: "of organizations have adopted AI in at least one business function", s: "McKinsey, The State of AI (2024)", url: "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", illus: false },
+        { v: "Top 3", d: "AI & big-data skills rank among the fastest-growing leaders need by 2030", s: "WEF Future of Jobs Report 2025", url: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/", illus: false }
+      ],
+
+      // The five ways this journey lets me create real value.
+      pillars: [
+        { key: "decision",   icon: "🧠", title: "Sharper Decisions",      blurb: "I'll learn to turn data into decisions my team can stand behind." },
+        { key: "efficiency", icon: "⚙️", title: "Lighter Load for Others", blurb: "I'll find where AI removes friction, giving my colleagues their time back." },
+        { key: "strategy",   icon: "🎯", title: "A Clearer Path Forward",  blurb: "I'll see where AI creates real advantage — and help my organization get there." },
+        { key: "productivity",icon: "📈", title: "A Stronger Team",         blurb: "I'll lift the people around me to do their best work alongside AI." },
+        { key: "readiness",  icon: "🔮", title: "Ready for What's Next",    blurb: "I'll prepare my people and processes for the future, responsibly." }
+      ],
+
+      // Horizontal bar: relative organizational impact of each leadership capability.
+      impact: {
+        labels: ["Decision-Making", "Operational Efficiency", "Strategic Advantage", "Team Productivity", "Future Readiness"],
+        values: [88, 82, 79, 76, 84],
+        illus: true,
+        src: "Illustrative organizational-impact index — relative value AI-fluent leadership delivers across capabilities. Replace with internal or benchmark data."
+      },
+
+      // Line: organizational AI-readiness maturity as leadership capability grows.
+      readiness: {
+        labels: ["2020","2022","2024","2026","2028","2030"],
+        values: [28, 41, 58, 72, 84, 93],
+        illus: true,
+        src: "Indexed organizational AI-readiness trajectory (0–100) as leadership capability matures — illustrative."
+      },
+
+      // Doughnut: employer AI adoption (organization-level signal).
+      adoption: {
+        labels: ["Adopted / piloting AI", "Exploring", "No current plans"],
+        values: [72, 19, 9],
+        illus: true,
+        src: "Share of organizations using or piloting AI — directional, per McKinsey State of AI, 2024."
+      },
+
+      // Bar: business functions where AI-fluent leaders drive improvement.
+      functions: {
+        labels: ["Operations", "Strategy & Planning", "Customer Experience", "Risk & Governance", "Talent & Org"],
+        values: [81, 88, 74, 69, 72],
+        illus: true,
+        src: "Illustrative — business functions where AI-fluent leaders apply AI to improve organizational outcomes."
+      }
+    };
+    console.log("PROGRAM_DATA loaded", PROGRAM_DATA.meta.name);
+
+    /* =========================================================
+       RENDER ENGINE — builds the whole page from PROGRAM_DATA
+       ========================================================= */
+    const D = PROGRAM_DATA;
+    const skillById = Object.fromEntries(D.skills.map(s => [s.id, s]));
+    const courseByCode = Object.fromEntries(D.courses.map(c => [c.code, c]));
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    // completion estimate: 36 credits, 3 cr/course = 12 courses; 10-wk terms, 4/yr
+    const numCourses = D.courses.filter(c => c.group !== 'elective').length + 4; // core+req + 4 electives
+    const completion = "1.5 – 3 yrs";
+    const completedCredits = D.courses.filter(c => c.status === "completed").reduce((s, c) => s + c.credits, 0);
+    const inProgressCredits = D.courses.filter(c => c.status === "inProgress").reduce((s, c) => s + c.credits, 0);
+    const progressPct = D.meta.creditHours ? Math.round((completedCredits + inProgressCredits) / D.meta.creditHours * 100) : 0;
+
+    function navHTML() {
+      return `
+      <nav class="nav"><div class="nav-inner">
+        <span class="nav-brand">Amberton <span class="dot">·</span> MS in Applied Artificial Intelligence</span>
+        <div class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#curriculum">Curriculum</a>
+          <a href="#certificate">Certificate</a>
+          <a href="#skills">Skills</a>
+          <a href="#value">Value</a>
+          <a href="#careers">Careers</a>
+          <a href="#cost">Cost</a>
+        </div>
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme" title="Toggle theme">◐</button>
+      </div></nav>`;
+    }
+
+    function heroHTML() {
+      return `
+      <header class="hero"><div class="wrap">
+        <div class="hero-banner">
+          <span class="eyebrow">● My journey · 100% Online</span>
+          <h1>MS in Applied (AI) <span class="grad">Artificial Intelligence</span></h1>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="lede">${esc(D.mission)}</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#curriculum">Walk the Path →</a>
+              <a class="btn btn-ghost btn-true-value" href="#value">Why It's Worth It</a>
+              <a class="btn btn-ghost" href="${D.meta.sourceUrl}" target="_blank" rel="noopener">🎓 Visit the Official Program Page ↗</a>
+            </div>
+          </div>
+          <div class="hero-logo">
+            <a class="hero-seal-link" href="https://amberton.edu" target="_blank" rel="noopener" aria-label="Visit amberton.edu">
+              <img src="assets/amberton-seal.png" alt="Amberton University seal — est. 1971" />
+            </a>
+            <span class="hero-logo-loc">Garland, TX</span>
+          </div>
+        </div>
+      </div></header>`;
+    }
+
+    function fmtDate(iso) {
+      const [y,m,d] = iso.split('-').map(Number);
+      const mo = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1];
+      return `${mo} ${d}, ${y}`;
+    }
+
+    function overviewHTML() {
+      const kpis = [
+        { ico:"🎓", num: D.meta.creditHours, lab:"Credits I'll Earn" },
+        { ico:"📚", num: numCourses, lab:"Milestones Along the Way" },
+        { ico:"🗓️", num: D.meta.courseLengthWeeks + " wk", lab:"Per Class • "+D.meta.sessionsPerYear+" Terms/Year" },
+        { ico:"⏳", num: completion, lab:"The Road Ahead" },
+        { ico:"📈", num: progressPct + "%", lab:"Completed & In Progress", sub: completedCredits+" cr done · "+inProgressCredits+" cr in progress", hero:true }
+      ];
+      return `
+      <section class="block" id="overview"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">📋 Program Overview</div>
+          <h2 class="sec-title">A graduate degree for AI leaders, not bystanders.</h2>
+          <p class="sec-sub">I've chosen to invest in myself — and in everyone who'll benefit from who I become. Here's the shape of the commitment ahead.</p>
+        </div>
+        <div class="kpi-grid">
+          ${kpis.map(k => `<div class="kpi${k.hero ? " kpi-hero" : ""}"><div class="ico">${k.ico}</div><div class="num${k.hero ? " big" : ""}">${esc(k.num)}</div><div class="lab">${esc(k.lab)}</div>${k.sub ? `<div class="ksub">${esc(k.sub)}</div>` : ""}</div>`).join("")}
+        </div>
+        <div class="grid-2" style="margin-top:24px;">
+          <div class="card">
+            <h3 style="margin:0 0 14px; font-size:18px;">Who chooses this path</h3>
+            <ul class="clean">${D.audience.map(a => `<li><span class="tick">→</span><span>${esc(a)}</span></li>`).join("")}</ul>
+          </div>
+          <div class="card">
+            <h3 style="margin:0 0 14px; font-size:18px;">Who I'll become</h3>
+            <ul class="clean">${D.outcomes.map(o => `<li><span class="tick">✓</span><span>${esc(o)}</span></li>`).join("")}</ul>
+          </div>
+        </div>
+      </div></section>`;
+    }
+
+    function courseCard(c, idx) {
+      const g = D.groups[c.group];
+      const tags = c.skills.map(id => `<span class="ctag">${esc(skillById[id].label)}</span>`).join("");
+      const hasDetail = Array.isArray(c.competencies) && c.competencies.length;
+      const cid = "course-" + c.code;
+      let expand = "";
+      if (hasDetail) {
+        const items = c.competencies.map(t => `<li>${esc(t)}</li>`).join("");
+        const link = c.url ? `<a class="course-link" href="${c.url}" target="_blank" rel="noopener">View official course page ↗</a>` : "";
+        expand = `
+          <button class="course-toggle" aria-expanded="false" aria-controls="${cid}" onclick="toggleCourse(this)">
+            <span class="ct-label">The strengths I'll carry forward</span>
+            <span class="ct-chev" aria-hidden="true">⌄</span>
+          </button>
+          <div class="course-detail" id="${cid}" hidden>
+            <ul class="comp-list">${items}</ul>
+            ${link}
+          </div>`;
+      }
+      const done = c.status === "completed";
+      const inProgress = c.status === "inProgress";
+      const statusBadge = done
+        ? `<div class="badge-done"><span class="tick" aria-hidden="true">✓</span> Completed${c.completedVia ? " · " + esc(c.completedVia) : ""}</div>`
+        : inProgress
+        ? `<div class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress</div>`
+        : "";
+      const seqLabel = c.term ? esc(c.term) : "term " + c.seq;
+      return `<div class="course${done ? " is-done" : ""}${inProgress ? " is-progress" : ""}" style="--g-color:${g.color}">
+        <span class="seqbadge">${seqLabel}</span>
+        <div class="code">${esc(c.code)} · ${c.credits} cr</div>
+        ${statusBadge}
+        <div class="ctitle">${esc(c.title)}</div>
+        <p class="cnote">${esc(c.note||"")}</p>
+        <div class="ctags">${tags}</div>
+        ${expand}
+      </div>`;
+    }
+
+    function curriculumHTML() {
+      const order = ["required","core","elective"];
+      const tracks = order.map(gk => {
+        const g = D.groups[gk];
+        const cs = D.courses.filter(c => c.group === gk);
+        const extra = gk === "elective" ? `<div class="note-bar">${esc(D.electiveRule)} <a href="https://amberton.edu/course-guide/" target="_blank" rel="noopener">Browse the course guide ↗</a></div>` : "";
+        return `<div class="track">
+          <div class="track-head">
+            <span class="bar" style="background:${g.color}"></span>
+            <h3>${esc(g.label)}</h3>
+            <span class="hrs">${g.hrs} credit hours</span>
+            <span class="blurb">${esc(g.blurb)}</span>
+          </div>
+          <div class="course-grid">${cs.map(courseCard).join("")}</div>
+          ${extra}
+        </div>`;
+      }).join("");
+
+      const legend = [1,2,3,4].map(n => `<div class="step"><span class="dotn">${n}</span> ${["Set out","Build momentum","Deepen mastery","Lead the way"][n-1]}</div>`).join("");
+
+      return `
+      <section class="block" id="curriculum"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">🗺️ Curriculum Map</div>
+          <h2 class="sec-title">36 credits, sequenced from foundations to leadership.</h2>
+          <p class="sec-sub">Each course is a milestone on the path — and a real investment of my time and focus. Open any one to see the strengths I'll carry forward.</p>
+        </div>
+        <div class="seq-legend">${legend}</div>
+        ${tracks}
+      </div></section>`;
+    }
+
+    function skillsMatrixHTML() {
+      // count skill coverage per course for heat intensity (primary vs secondary)
+      const heatColors = ["transparent", "color-mix(in srgb,var(--accent) 28%,transparent)", "color-mix(in srgb,var(--accent) 58%,transparent)", "var(--accent)"];
+      const rows = D.courses.map(c => {
+        const cells = D.skills.map(s => {
+          let lvl = 0;
+          if (c.skills.includes(s.id)) lvl = c.skills[0] === s.id ? 3 : 2;
+          const bg = heatColors[lvl];
+          const title = `${c.code} × ${s.label}: ${["none","","develops","core focus"][lvl]}`;
+          const cellInner = `<div class="cell" style="background:${bg}" title="${esc(title)}"></div>`;
+          const wrapped = c.url
+            ? `<a href="${c.url}" target="_blank" rel="noopener" title="${esc(title)}" style="display:block;">${cellInner}</a>`
+            : cellInner;
+          return `<td>${wrapped}</td>`;
+        }).join("");
+        const codeCell = c.url
+          ? `<a class="matrix-link" href="${c.url}" target="_blank" rel="noopener">${esc(c.code)} ↗</a>`
+          : esc(c.code);
+        const mstat = c.status === "completed"
+          ? `<span class="m-stat done">✓ ${esc(c.completedVia ? "Transferred" : "Completed")}</span>`
+          : c.status === "inProgress"
+          ? `<span class="m-stat prog">● In progress</span>`
+          : `<span class="m-stat plan">${esc(c.term || ("Term " + (c.seq || "")))}</span>`;
+        return `<tr><th>${codeCell}<br><small>${esc(c.title)}</small><br>${mstat}</th>${cells}</tr>`;
+      }).join("");
+
+      const heads = D.skills.map(s => `<th>${esc(s.label)}</th>`).join("");
+
+      return `
+      <section class="block" id="skills"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">🧩 Skills & Competencies</div>
+          <h2 class="sec-title">Every course maps to an in-demand AI skill.</h2>
+          <p class="sec-sub">Every milestone I complete builds a real, lasting strength — the kind my team will feel long after the work is done. Darker means it's at the heart of that course.</p>
+        </div>
+        <div class="matrix-scroll">
+          <table class="matrix">
+            <thead><tr><th style="text-align:left;">Course</th>${heads}</tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div class="heat-legend">
+          <span>Coverage:</span>
+          <div class="heat-swatch">
+            <span style="background:${heatColors[1]}"></span>
+            <span style="background:${heatColors[2]}"></span>
+            <span style="background:${heatColors[3]}"></span>
+          </div>
+          <span>builds it → at its heart</span>
+        </div>
+      </div></section>`;
+    }
+
+    function careersHTML() {
+      return `
+      <section class="block" id="careers"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">💼 Career Outcomes</div>
+          <h2 class="sec-title">Roles this degree is built to unlock.</h2>
+          <p class="sec-sub">Where this journey can lead — not just a title, but the chance to make a real difference for the people who count on me.</p>
+        </div>
+        <div class="career-grid">
+          ${D.careers.map(c => `<div class="career"><div class="ci">${c.icon}</div><div class="cr">${esc(c.role)}</div><div class="cb">${esc(c.blurb)}</div></div>`).join("")}
+        </div>
+      </div></section>`;
+    }
+
+    function certHTML() {
+      const cert = D.certificate;
+      if (!cert) return "";
+      const rows = cert.courses.map(code => {
+        const c = courseByCode[code] || { code, title: "", credits: 3 };
+        const done = c.status === "completed";
+        const prog = c.status === "inProgress";
+        const badge = done
+          ? `<span class="badge-done"><span class="tick" aria-hidden="true">✓</span> Completed${c.completedVia ? " · " + esc(c.completedVia) : ""}</span>`
+          : prog
+          ? `<span class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress</span>`
+          : `<span class="cert-planned">${esc(c.term || ("Term " + (c.seq||"")))}</span>`;
+        const name = c.url
+          ? `<a class="matrix-link" href="${c.url}" target="_blank" rel="noopener">${esc(c.code)} ↗</a>`
+          : esc(c.code);
+        return `<tr>
+          <td class="cert-code">${name}</td>
+          <td class="cert-title">${esc(c.title)}</td>
+          <td class="cert-cr">${esc(c.credits)} hrs</td>
+          <td class="cert-status">${badge}</td>
+        </tr>`;
+      }).join("");
+      return `
+      <section class="block" id="certificate"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">🎖️ Graduate Certificate</div>
+          <h2 class="sec-title">A stackable credential I earn along the way.</h2>
+          <p class="sec-sub">${esc(cert.name)} — ${esc(cert.hours)} credits. Every course it requires is already part of my degree plan, so this credential comes built into the journey.</p>
+        </div>
+        <div class="card">
+          <p style="margin:0 0 18px; color:var(--text-secondary); font-size:15px; line-height:1.6;">${esc(cert.overview)}</p>
+          <div class="matrix-scroll">
+            <table class="matrix cert-table">
+              <thead><tr><th style="text-align:left;">Course</th><th style="text-align:center;">Title</th><th>Credit</th><th>Status</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          <div class="note-bar" style="margin-top:18px;">${esc(cert.note)}</div>
+          <p style="margin:14px 0 0; font-size:13px; color:var(--text-secondary);">
+            ${esc(cert.footnote)}
+            <a href="${cert.sourceUrl}" target="_blank" rel="noopener">View the official certificate sheet ↗</a>
+          </p>
+        </div>
+      </div></section>`;
+    }
+
+    function valueHTML() {
+      const strip = VALUE.headline.map(h => `
+        <div class="stat-big">
+          <div class="v">${esc(h.v)}</div>
+          <div class="d">${esc(h.d)}</div>
+          <div class="s">${h.url?`<a href="${h.url}" target="_blank" rel="noopener">${esc(h.s)} ↗</a>`:esc(h.s)}</div>
+        </div>`).join("");
+
+      const pillars = VALUE.pillars.map(p => `
+        <div class="career">
+          <div class="ci">${p.icon}</div>
+          <div class="cr">${esc(p.title)}</div>
+          <div class="cb">${esc(p.blurb)}</div>
+        </div>`).join("");
+
+      return `
+      <section class="block" id="value"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">💡 Why It Matters</div>
+          <h2 class="sec-title">My growth compounds into real value for the people I serve.</h2>
+          <p class="sec-sub">The effort I'm choosing to give comes back as something real — sharper decisions, lighter loads, and a team that's ready for what's next. This is what my dedication makes possible.</p>
+        </div>
+
+        <div class="stat-strip">${strip}</div>
+
+        <h3 style="font-size:20px; font-weight:600; margin:8px 0 18px;">Five ways my dedication creates real value</h3>
+        <div class="career-grid" style="margin-bottom:32px;">${pillars}</div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h4>Organizational AI-readiness as leadership matures</h4>
+            <p class="src">${esc(VALUE.readiness.src)}</p>
+            <div class="chart-box"><canvas id="chartReadiness"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Organizational impact by leadership capability</h4>
+            <p class="src">${esc(VALUE.impact.src)}</p>
+            <div class="chart-box"><canvas id="chartImpact"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Where AI-fluent leaders drive improvement</h4>
+            <p class="src">${esc(VALUE.functions.src)}</p>
+            <div class="chart-box"><canvas id="chartFunctions"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Employer AI adoption</h4>
+            <p class="src">${esc(VALUE.adoption.src)}</p>
+            <div class="chart-box"><canvas id="chartAdoption"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+          <h3 style="margin:0 0 4px; font-size:18px;">What my organization gains when I walk this path</h3>
+          <p class="src" style="margin:0 0 16px;">How this applied, human-centered journey compares to the alternatives.</p>
+          <div style="overflow-x:auto;">
+          <table class="cmp">
+            <thead><tr><th>Organizational priority</th><th>This program</th><th>Technical MS in AI/ML</th><th>Generic MBA</th></tr></thead>
+            <tbody>
+              <tr class="me"><td>Develops leaders who deploy AI</td><td class="hl">Built for it</td><td>Builds the systems, not the leaders</td><td>General management</td></tr>
+              <tr><td>Applied to real business processes</td><td class="hl">Core focus</td><td>Research-oriented</td><td>Broad, not AI-specific</td></tr>
+              <tr class="me"><td>Responsible-AI governance</td><td class="hl">Built in (RGS6036)</td><td>Sometimes</td><td>Rare</td></tr>
+              <tr><td>Predictive analytics for decisions</td><td class="hl">Core (MGT6785)</td><td>Core</td><td>Limited</td></tr>
+              <tr class="me"><td>Fits working professionals</td><td class="hl">100% online, 10-wk terms</td><td>Often on-campus</td><td>Mixed</td></tr>
+              <tr><td>Best for the organization when…</td><td class="hl">Leading AI adoption</td><td>Building AI products</td><td>Broad upskilling</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div></section>`;
+    }
+
+    /* ===== MOUNT ===== */
+    function costHTML() {
+      const perCredit = D.meta.costPerCredit || 325;
+      const perClass = perCredit * 3;
+      const total = perCredit * D.meta.creditHours;
+      const cards = [
+        { ico:"💵", num: "$" + perCredit, lab:"Per Credit Hour" },
+        { ico:"📖", num: "< $1,000", lab:"Per Class · 3 credit hours" },
+        { ico:"🎓", num: "$" + total.toLocaleString(), lab:"Est. Total Tuition · " + D.meta.creditHours + " credits" }
+      ];
+      return `
+      <section class="block" id="cost"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">💰 Cost</div>
+          <h2 class="sec-title">Accessible, transparent tuition — under $1,000 per class.</h2>
+          <p class="sec-sub">A flat per-credit rate with no hidden fees, so I can plan my investment one class at a time.</p>
+        </div>
+        <details class="disclose">
+          <summary class="disclose-sum">
+            <span>Show tuition details</span>
+            <span class="disclose-chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="disclose-body">
+            <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
+              ${cards.map(c => `<div class="kpi"><div class="ico">${c.ico}</div><div class="num">${esc(c.num)}</div><div class="lab">${esc(c.lab)}</div></div>`).join("")}
+            </div>
+            <div class="note-bar">Tuition figures from the official Amberton program page ($${perCredit}/credit). A 3-credit course is $${perClass.toLocaleString()} — under $1,000 per class.</div>
+          </div>
+        </details>
+      </div></section>`;
+    }
+
+    /* ===== MOUNT ===== */
+    function render() {
+      document.body.insertAdjacentHTML("afterbegin", navHTML());
+      const app = document.getElementById("app");
+      app.innerHTML =
+        heroHTML() +
+        overviewHTML() +
+        curriculumHTML() +
+        certHTML() +
+        skillsMatrixHTML() +
+        valueHTML() +
+        careersHTML() +
+        costHTML() +
+        `<footer class="foot"><div class="wrap">
+          Data sourced from the <a href="${D.meta.sourceUrl}" target="_blank" rel="noopener">Amberton University program page ↗</a>. <a href="${D.meta.repoUrl}" target="_blank" rel="noopener">View on GitHub ↗</a> <span class="ver">${esc(D.meta.version)}</span>
+        </div></footer>`;
+
+      wireTheme();
+      // Chart.js may arrive late (slow CDN / proxied network on GitHub Pages).
+      // Poll for it instead of relying on a single load event that may have already fired.
+      (function waitForChart(tries) {
+        if (window.Chart) { buildCharts(); return; }
+        if (tries <= 0) return; // give up after ~10s; titles/captions still render
+        setTimeout(() => waitForChart(tries - 1), 200);
+      })(50);
+    }
+
+    // Expand/collapse a course card's competency detail.
+    function toggleCourse(btn) {
+      const panel = document.getElementById(btn.getAttribute("aria-controls"));
+      if (!panel) return;
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      panel.hidden = open;
+      btn.classList.toggle("open", !open);
+    }
+    window.toggleCourse = toggleCourse;
+
+    function wireTheme() {
+      const btn = document.getElementById("themeBtn");
+      if (!btn) return;
+      btn.addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+        const next = cur === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch(e){}
+        if (window.Chart) buildCharts(); // re-theme charts
+      });
+    }
+
+    let _charts = [];
+    function buildCharts() {
+      _charts.forEach(c => c.destroy()); _charts = [];
+      const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+      const ink = css("--text-primary"), sub = css("--text-secondary"), grid = css("--border-secondary");
+      const accent = "#6E5BE6", accent2 = "#2997FF", accent3 = "#30D158", accent4 = "#FF9F0A";
+      Chart.defaults.font.family = "system-ui, sans-serif";
+      Chart.defaults.color = sub;
+      const mk = (id, cfg) => { const el = document.getElementById(id); if (el) _charts.push(new Chart(el, cfg)); };
+
+      mk("chartReadiness", {
+        type:"line",
+        data:{ labels: VALUE.readiness.labels, datasets:[{ label:"AI-readiness", data: VALUE.readiness.values,
+          borderColor: accent, backgroundColor:"rgba(110,91,230,.15)", fill:true, tension:.35, pointRadius:3, borderWidth:2 }]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},
+          tooltip:{callbacks:{label:c=>"Readiness index: "+c.raw}}},
+          scales:{ x:{grid:{color:grid}}, y:{grid:{color:grid}, min:0, max:100, ticks:{callback:v=>v}} } }
+      });
+
+      mk("chartImpact", {
+        type:"bar",
+        data:{ labels: VALUE.impact.labels, datasets:[{ data: VALUE.impact.values,
+          backgroundColor:[accent,accent2,accent3,accent4,"#FF6482"], borderRadius:8, borderWidth:0 }]},
+        options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},
+          tooltip:{callbacks:{label:c=>"Impact index: "+c.raw}}},
+          scales:{ x:{grid:{color:grid}, min:0, max:100}, y:{grid:{display:false}, ticks:{font:{size:11}}} } }
+      });
+
+      mk("chartFunctions", {
+        type:"bar",
+        data:{ labels: VALUE.functions.labels, datasets:[{ data: VALUE.functions.values,
+          backgroundColor: accent2, borderRadius:8, borderWidth:0 }]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},
+          tooltip:{callbacks:{label:c=>"Improvement index: "+c.raw}}},
+          scales:{ x:{grid:{display:false}, ticks:{maxRotation:30, minRotation:0, font:{size:10}}},
+            y:{grid:{color:grid}, min:0, max:100} } }
+      });
+
+      mk("chartAdoption", {
+        type:"doughnut",
+        data:{ labels: VALUE.adoption.labels, datasets:[{ data: VALUE.adoption.values,
+          backgroundColor:[accent, accent2, grid], borderWidth:0 }]},
+        options:{ responsive:true, maintainAspectRatio:false, cutout:"62%",
+          plugins:{legend:{position:"bottom", labels:{padding:14, boxWidth:12, font:{size:11}}},
+            tooltip:{callbacks:{label:c=>c.label+": "+c.raw+"%"}}} }
+      });
+    }
+
+    render();
+
+
+  </script>
+</body>
+</html>
