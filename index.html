@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<!-- build: 2026-06-07T20-05Z -->
+<!-- build: v5 · 2026-06-21T15-03Z -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MS in Applied AI · Amberton University — Program Dashboard</title>
@@ -392,7 +392,6 @@
         costPerCredit: 325,
         courseLengthWeeks: 10,
         sessionsPerYear: 4,
-        nextStart: "2026-06-13",
         sourceUrl: "https://amberton.edu/degree-programs/master-of-science-applied-artificial-intelligence",
         version: "v5",
         repoUrl: "https://github.com/sjg-2026/ms-in-artificial-intelligence"
@@ -742,7 +741,6 @@
         src: "Illustrative — business functions where AI-fluent leaders apply AI to improve organizational outcomes."
       }
     };
-    console.log("PROGRAM_DATA loaded", PROGRAM_DATA.meta.name);
 
     /* =========================================================
        RENDER ENGINE — builds the whole page from PROGRAM_DATA
@@ -751,6 +749,8 @@
     const skillById = Object.fromEntries(D.skills.map(s => [s.id, s]));
     const courseByCode = Object.fromEntries(D.courses.map(c => [c.code, c]));
     const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    // Unverified figures (illus:true) get a visible "Illustrative" badge.
+    const illusBadge = o => (o && o.illus) ? ` <span class="badge-illus">Illustrative</span>` : "";
 
     // completion estimate: 36 credits, 3 cr/course = 12 courses; 10-wk terms, 4/yr
     const numCourses = D.courses.filter(c => c.group !== 'elective').length + 4; // core+req + 4 electives
@@ -800,12 +800,6 @@
           </div>
         </div>
       </div></header>`;
-    }
-
-    function fmtDate(iso) {
-      const [y,m,d] = iso.split('-').map(Number);
-      const mo = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1];
-      return `${mo} ${d}, ${y}`;
     }
 
     function overviewHTML() {
@@ -1027,7 +1021,7 @@
         <div class="stat-big">
           <div class="v">${esc(h.v)}</div>
           <div class="d">${esc(h.d)}</div>
-          <div class="s">${h.url?`<a href="${h.url}" target="_blank" rel="noopener">${esc(h.s)} ↗</a>`:esc(h.s)}</div>
+          <div class="s">${h.url?`<a href="${h.url}" target="_blank" rel="noopener">${esc(h.s)} ↗</a>`:esc(h.s)}${illusBadge(h)}</div>
         </div>`).join("");
 
       const pillars = VALUE.pillars.map(p => `
@@ -1052,22 +1046,22 @@
 
         <div class="chart-grid">
           <div class="chart-card">
-            <h4>Organizational AI-readiness as leadership matures</h4>
+            <h4>Organizational AI-readiness as leadership matures${illusBadge(VALUE.readiness)}</h4>
             <p class="src">${esc(VALUE.readiness.src)}</p>
             <div class="chart-box"><canvas id="chartReadiness"></canvas></div>
           </div>
           <div class="chart-card">
-            <h4>Organizational impact by leadership capability</h4>
+            <h4>Organizational impact by leadership capability${illusBadge(VALUE.impact)}</h4>
             <p class="src">${esc(VALUE.impact.src)}</p>
             <div class="chart-box"><canvas id="chartImpact"></canvas></div>
           </div>
           <div class="chart-card">
-            <h4>Where AI-fluent leaders drive improvement</h4>
+            <h4>Where AI-fluent leaders drive improvement${illusBadge(VALUE.functions)}</h4>
             <p class="src">${esc(VALUE.functions.src)}</p>
             <div class="chart-box"><canvas id="chartFunctions"></canvas></div>
           </div>
           <div class="chart-card">
-            <h4>Employer AI adoption</h4>
+            <h4>Employer AI adoption${illusBadge(VALUE.adoption)}</h4>
             <p class="src">${esc(VALUE.adoption.src)}</p>
             <div class="chart-box"><canvas id="chartAdoption"></canvas></div>
           </div>
@@ -1180,7 +1174,10 @@
       _charts.forEach(c => c.destroy()); _charts = [];
       const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
       const ink = css("--text-primary"), sub = css("--text-secondary"), grid = css("--border-secondary");
-      const accent = "#6E5BE6", accent2 = "#2997FF", accent3 = "#30D158", accent4 = "#FF9F0A";
+      const accent = css("--accent"), accent2 = css("--accent-2"), accent3 = css("--accent-3"), accent4 = css("--accent-4");
+      // Canvas can't parse color-mix(); derive translucent fills from hex tokens.
+      const alpha = (hex, a) => { const m = /^#([0-9a-f]{6})$/i.exec(hex); if (!m) return hex;
+        const n = parseInt(m[1], 16); return `rgba(${n>>16},${(n>>8)&255},${n&255},${a})`; };
       Chart.defaults.font.family = "system-ui, sans-serif";
       Chart.defaults.color = sub;
       const mk = (id, cfg) => { const el = document.getElementById(id); if (el) _charts.push(new Chart(el, cfg)); };
@@ -1188,7 +1185,7 @@
       mk("chartReadiness", {
         type:"line",
         data:{ labels: VALUE.readiness.labels, datasets:[{ label:"AI-readiness", data: VALUE.readiness.values,
-          borderColor: accent, backgroundColor:"rgba(110,91,230,.15)", fill:true, tension:.35, pointRadius:3, borderWidth:2 }]},
+          borderColor: accent, backgroundColor: alpha(accent, .15), fill:true, tension:.35, pointRadius:3, borderWidth:2 }]},
         options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},
           tooltip:{callbacks:{label:c=>"Readiness index: "+c.raw}}},
           scales:{ x:{grid:{color:grid}}, y:{grid:{color:grid}, min:0, max:100, ticks:{callback:v=>v}} } }
