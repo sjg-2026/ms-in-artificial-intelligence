@@ -234,6 +234,19 @@
     letter-spacing:.02em; color: var(--accent-4); background: color-mix(in srgb, var(--accent-4) 14%, transparent);
     padding:3px 9px; border-radius:980px; margin:6px 0 2px; }
   .badge-progress .tick { font-size:9px; }
+  .course-dates { font-size:12px; font-weight:600; margin:2px 0 4px; color:var(--text-secondary); }
+  .course-dates.win { color:#2997FF; }
+  .course-dates.spr { color:#BF5AF2; }
+  .upnext { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:16px; }
+  .upnext-card { border:1px solid var(--border-secondary); border-left:6px solid var(--text-secondary); border-radius:var(--radius); background:var(--bg-secondary); padding:14px 18px; }
+  .upnext-card.win { border-left-color:#2997FF; }
+  .upnext-card.spr { border-left-color:#BF5AF2; }
+  .upnext-label { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-secondary); }
+  .upnext-card.win .upnext-term { color:#2997FF; }
+  .upnext-card.spr .upnext-term { color:#BF5AF2; }
+  .upnext-term { font-size:20px; font-weight:700; margin:4px 0 2px; }
+  .upnext-dates { font-size:16px; font-weight:600; }
+  .upnext-title { font-size:14px; color:var(--text-secondary); margin-top:4px; }
   /* certificate table */
   table.cert-table td, table.cert-table th { text-align:left; padding:12px 14px; vertical-align:middle; }
   table.cert-table th:nth-child(3), table.cert-table td.cert-cr,
@@ -254,6 +267,12 @@
   @media (prefers-reduced-motion: reduce) { .disclose-chev { transition:none; } }
   .course.is-progress { border-color: color-mix(in srgb, var(--accent-4) 45%, var(--border-secondary)); }
   .course.is-progress::before { background: var(--accent-4); }
+  .course.is-pend.win { border-color: color-mix(in srgb, #2997FF 50%, var(--border-secondary)); }
+  .course.is-pend.win::before { background:#2997FF; }
+  .course.is-pend.spr { border-color: color-mix(in srgb, #BF5AF2 50%, var(--border-secondary)); }
+  .course.is-pend.spr::before { background:#BF5AF2; }
+  .badge-progress.win, .m-stat.pend.win, .cert-planned.pend.win { color:#2997FF; background:color-mix(in srgb,#2997FF 14%,transparent); border-color:transparent; }
+  .badge-progress.spr, .m-stat.pend.spr, .cert-planned.pend.spr { color:#BF5AF2; background:color-mix(in srgb,#BF5AF2 14%,transparent); border-color:transparent; }
 
   /* expandable course detail */
   .course-toggle {
@@ -345,6 +364,146 @@
 
   .note-bar { font-size:13px; color:var(--text-secondary); background:var(--bg-tertiary);
     border:1px dashed var(--border-secondary); border-radius:var(--radius-sm); padding:12px 16px; margin-top:24px; }
+
+  /* discreet enrollment notes */
+  .enroll-note { display:block; font-size:10.5px; font-weight:400; color:var(--text-tertiary, var(--text-secondary)); opacity:.75; margin-top:1px; }
+  /* compact layout */
+  section.block { padding:14px 0 !important; }
+  .sec-head { margin-bottom:10px !important; }
+  .sec-kicker { font-size:11px !important; margin-bottom:2px !important; }
+  .sec-title { font-size:22px !important; line-height:1.2 !important; margin:0 0 4px !important; }
+  .sec-sub { font-size:13px !important; line-height:1.35 !important; margin:0 !important; max-width:none !important; }
+  .hero { padding:14px 0 10px !important; }
+  .hero h1 { font-size:30px !important; line-height:1.1 !important; margin:0 0 6px !important; }
+  .hero p.lede { font-size:14px !important; margin:0 0 10px !important; line-height:1.35 !important; }
+  .hero-banner { margin-bottom:8px !important; }
+  .hero-logo img { max-width:80px !important; }
+  .hero-seal-link { max-width:80px !important; }
+  .hero-grid { gap:16px !important; }
+
+  /* compact layout, pass 2 */
+  .course-grid { grid-template-columns: repeat(4, 1fr) !important; gap:8px !important; }
+  @media (max-width:1000px){ .course-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+  @media (max-width:560px){ .course-grid { grid-template-columns: 1fr !important; } }
+  .course { padding:8px 10px !important; }
+  .course .cnote, .course .ctags { display:none !important; }
+  .course .ctitle { font-size:13px !important; margin:2px 0 4px !important; }
+  .course .code { font-size:11px !important; }
+  .course .seqbadge { font-size:10px !important; }
+  .course .badge-progress, .course .badge-done { margin:2px 0 !important; padding:1px 7px !important; font-size:10px !important; }
+  .course .course-dates { font-size:11px !important; margin:0 !important; }
+  .course .course-toggle { padding:5px 8px !important; font-size:12px !important; margin-top:4px !important; }
+  .chart-grid { grid-template-columns: repeat(4, 1fr) !important; gap:10px !important; }
+  @media (max-width:1000px){ .chart-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+  @media (max-width:560px){ .chart-grid { grid-template-columns: 1fr !important; } }
+  .chart-card { padding:10px !important; }
+  .chart-card h4 { font-size:13px !important; }
+  .chart-card .src { display:none !important; }
+  .chart-box { height:130px !important; }
+  .kpi { padding:10px 12px !important; }
+  .kpi .ico { margin-bottom:2px !important; font-size:16px !important; }
+  .kpi .num { font-size:24px !important; }
+  .kpi .lab { font-size:12px !important; margin-top:3px !important; }
+  .kpi .ksub { font-size:10.5px !important; margin-top:1px !important; }
+  .kpi-grid { gap:8px !important; }
+  .upnext { margin-top:8px !important; gap:8px !important; }
+  .upnext-card { padding:8px 12px !important; }
+  .upnext-term { font-size:16px !important; margin:1px 0 !important; }
+  .upnext-dates { font-size:13px !important; }
+  .upnext-title { font-size:12px !important; margin-top:1px !important; }
+  .card { padding:12px 14px !important; }
+  .grid-2 { gap:10px !important; margin-top:10px !important; }
+  table td, table th { padding-top:5px !important; padding-bottom:5px !important; }
+  table.matrix thead th { padding:6px 6px !important; }
+  table.cert-table td, table.cert-table th { padding:6px 10px !important; }
+  .note-bar { padding:8px 12px !important; margin-top:8px !important; font-size:12px !important; }
+
+  /* compact layout, pass 3 */
+  ul.clean li { padding:4px 0 !important; font-size:13px !important; gap:8px !important; line-height:1.3 !important; }
+  .card h3 { font-size:15px !important; margin:0 0 4px !important; }
+  table.matrix .m-stat { display:none !important; }
+  table.matrix tbody th { padding:4px 10px !important; font-size:12px !important; }
+  table.matrix tbody th small { font-size:11px !important; }
+  .cell { width:20px !important; height:20px !important; margin:3px auto !important; border-radius:5px !important; }
+  table.matrix { font-size:12px !important; }
+  .heat-legend { margin-top:6px !important; font-size:12px !important; }
+  .seq-legend { margin:0 0 8px !important; }
+  .group-head, .grp-head { margin:10px 0 6px !important; }
+  .course-link { font-size:12px !important; }
+
+  /* compact layout, pass 4 */
+  .chart-grid > * { min-width:0 !important; }
+  .chart-card { overflow:hidden !important; }
+  .stat-strip { gap:8px !important; margin-bottom:10px !important; }
+  .stat-big { padding:10px 14px !important; }
+  .stat-big .v { font-size:24px !important; }
+  .stat-big .d { font-size:12px !important; margin-top:2px !important; }
+  .stat-big .s { font-size:10.5px !important; margin-top:2px !important; }
+  .career-grid { gap:8px !important; margin-bottom:10px !important; }
+  .career { padding:8px 10px !important; }
+  .career .ci { font-size:18px !important; margin-bottom:2px !important; }
+  .career .cr { font-size:13px !important; margin-bottom:2px !important; }
+  .career .cb { font-size:11.5px !important; line-height:1.3 !important; }
+  #value h3 { font-size:15px !important; margin:4px 0 8px !important; }
+  #certificate .card p, #certificate .card .cert-intro { font-size:13px !important; line-height:1.4 !important; margin:0 0 8px !important; }
+  #certificate .card { padding:12px 16px !important; }
+
+  /* compact layout, pass 5: top section + list text */
+  .hero { padding:10px 0 8px !important; }
+  .hero h1 { font-size:26px !important; margin:0 0 4px !important; }
+  .hero-banner { margin-bottom:4px !important; }
+  .hero p.lede { font-size:13px !important; line-height:1.35 !important; margin:0 0 8px !important; max-width:80ch !important; }
+  .hero-grid { gap:12px !important; grid-template-columns: 1fr auto !important; }
+  .hero-cta { gap:8px !important; }
+  .hero-cta .btn, .hero .btn { padding:6px 14px !important; font-size:13px !important; min-height:0 !important; }
+  .hero-logo { gap:2px !important; }
+  .hero-logo img, .hero-seal-link { max-width:56px !important; }
+  .hero-logo-loc { font-size:12px !important; }
+  ul.clean li { font-size:14px !important; }
+
+  /* compact layout, pass 6 */
+  .sec-sub { display:none !important; }
+  .seq-legend { display:none !important; }
+  footer { padding-top:12px !important; padding-bottom:12px !important; }
+  section.block { padding:10px 0 !important; }
+  .sec-head { margin-bottom:6px !important; }
+
+  /* phone: 100% progress card spans full width */
+  @media (max-width:720px){ .kpi-hero { grid-column: 1 / -1 !important; } }
+  @media (min-width:721px) and (max-width:1000px){ .kpi-hero { grid-column: span 3 !important; } }
+
+  /* no empty spots: wrapping rows whose items stretch to fill the width */
+  .kpi-grid, .course-grid, .career-grid, .chart-grid, .stat-strip { display:flex !important; flex-wrap:wrap !important; gap:8px !important; }
+  .kpi-grid > .kpi { flex:1 1 150px !important; min-width:0 !important; grid-column:auto !important; }
+  .kpi-grid > .kpi-hero { flex:1 1 240px !important; }
+  @media (max-width:1000px){ .kpi-grid > .kpi-hero { flex-basis:100% !important; } }
+  .course-grid > * { flex:1 1 250px !important; min-width:0 !important; }
+  .career-grid > * { flex:1 1 170px !important; min-width:0 !important; }
+  .chart-grid > * { flex:1 1 240px !important; min-width:0 !important; }
+  .stat-strip > * { flex:1 1 200px !important; min-width:0 !important; }
+  .upnext { display:flex !important; flex-wrap:wrap !important; }
+  .upnext > * { flex:1 1 260px !important; }
+
+  /* header cleanup */
+  .nav-inner { padding:8px 24px !important; gap:12px !important; }
+  .nav-links { flex-wrap:nowrap !important; gap:0 !important; overflow-x:auto; scrollbar-width:none; }
+  .nav-links a { white-space:nowrap !important; padding:6px 10px !important; }
+  .nav-links::-webkit-scrollbar { display:none; }
+
+  /* menu bar always visible */
+  .nav { position:sticky !important; top:0 !important; z-index:100 !important; background:var(--bg-primary) !important; }
+  .nav-inner { gap:8px !important; padding:6px 12px !important; }
+  .nav-links { display:flex !important; flex:1 1 auto !important; min-width:0 !important; margin-left:0 !important;
+    overflow-x:auto !important; flex-wrap:nowrap !important; justify-content:flex-start; -webkit-overflow-scrolling:touch; }
+  .nav-links a { flex:0 0 auto; }
+  .theme-btn { flex:0 0 auto; width:32px !important; height:32px !important; }
+  section.block, header.hero { scroll-margin-top:52px; }
+  @media (min-width:900px){ .nav-links { justify-content:flex-end; } .nav-inner { padding:6px 24px !important; } }
+
+  /* intro text spans available width; seal hidden on phones */
+  .hero p.lede, .hero-copy { max-width:none !important; }
+  .hero-copy { min-width:0 !important; }
+  @media (max-width:600px){ .hero-logo { display:none !important; } .hero-grid { grid-template-columns:1fr !important; } }
 </style>
 <!-- ===== Amberton orange brand palette (light + dark) ===== -->
 <style>
@@ -449,7 +608,7 @@
             "Writing in correct grammar and APA format",
             "Locating and using appropriate data sources"
           ] },
-        { code: "RGS6036", title: "Ethics for Decision Making", group: "required", credits: 3, seq: 1, skills: ["ethics","leader"], note: "Ethical reasoning for organizational decisions.", status: "inProgress", term: "Summer 2026",
+        { code: "RGS6036", title: "Ethics for Decision Making", group: "required", credits: 3, seq: 1, skills: ["ethics","leader"], note: "Ethical reasoning for organizational decisions.", status: "completed", term: "Summer 2026",
           url: "https://amberton.edu/courses/ethics-for-decision-making/",
           competencies: [
             "Examining various ethical theories and defining key terms",
@@ -467,7 +626,7 @@
           ] },
 
         // II. Major Requirements (18 hrs)
-        { code: "MGT5765", title: "Artificial Intelligence Essentials", group: "core", credits: 3, seq: 1, skills: ["mlfound","strategy"], note: "Core AI concepts and capabilities.", term: "2026",
+        { code: "MGT5765", title: "Artificial Intelligence Essentials", group: "core", credits: 3, seq: 1, skills: ["mlfound","strategy"], note: "Core AI concepts and capabilities.", status: "pending", term: "Winter 2027", dates: "12/05/2026 – 02/25/2027", enroll: "Enrollment opens 11/01/2026 · finalize by ~12/03/2026 (est.)",
           url: "https://amberton.edu/courses/mgt5765-artificial-intelligence-essentials/",
           competencies: [
             "Differentiating between AI, machine learning, and industry-specific AI applications.",
@@ -486,7 +645,7 @@
             "Evaluating the evolving role of AI governance, regulations, and ethical AI frameworks.",
             "Developing and presenting an AI strategy demonstrating advanced problem-solving and implementation skills."
           ] },
-        { code: "MGT5710", title: "Applied AI for Business", group: "core", credits: 3, seq: 2, skills: ["strategy","mlfound","analytics"], note: "Translating AI into business value.", term: "2026",
+        { code: "MGT5710", title: "Applied AI for Business", group: "core", credits: 3, seq: 2, skills: ["strategy","mlfound","analytics"], note: "Translating AI into business value.", status: "inProgress", almost: true, term: "2026 - Fall - Current",
           url: "https://amberton.edu/courses/mgt5710-applied-artificial-intelligence-for-business/",
           competencies: [
             "Differentiating between AI, Machine Learning, and Big Data.",
@@ -505,7 +664,7 @@
             "Developing a portfolio approach for AI project management.",
             "Researching current trends and advancements in AI for business."
           ] },
-        { code: "MGT6460", title: "Applied Business Analytics", group: "core", credits: 3, seq: 2, skills: ["analytics","research"], note: "Data-driven business analysis.", term: "2026",
+        { code: "MGT6460", title: "Applied Business Analytics", group: "core", credits: 3, seq: 2, skills: ["analytics","research"], note: "Data-driven business analysis.", status: "completed", term: "Summer 2026",
           url: "https://amberton.edu/courses/applied-business-analytics/",
           competencies: [
             "Identifying and evaluating influential literature relevant to Business Analytics topics.",
@@ -521,7 +680,7 @@
             "Discussing evidence-based learning (inspection and adaptation).",
             "Integrating continuous quality improvement into Business Analytics."
           ] },
-        { code: "MGT6785", title: "Applied Predictive Analytics", group: "core", credits: 3, seq: 3, skills: ["analytics","mlfound"], note: "Forecasting and predictive modeling.", term: "2027",
+        { code: "MGT6785", title: "Applied Predictive Analytics", group: "core", credits: 3, seq: 3, skills: ["analytics","mlfound"], note: "Forecasting and predictive modeling.", status: "pending", term: "Spring 2027", dates: "Dates not yet published", enroll: "Est. enrollment opens ~02/01–02/07/2027 · finalize by ~03/11/2027",
           url: "https://amberton.edu/courses/mgt6785-applied-predictive-analytics/",
           competencies: [
             "Defining predictive analytics",
@@ -537,7 +696,7 @@
             "Running and interpreting regression analysis using software",
             "Running and interpreting a k-NN analysis using software"
           ] },
-        { code: "MGT5790", title: "AI Driven Innovation and Strategy", group: "core", credits: 3, seq: 3, skills: ["strategy","leader"], note: "Innovation strategy in AI-led markets.", term: "2026",
+        { code: "MGT5790", title: "AI Driven Innovation and Strategy", group: "core", credits: 3, seq: 3, skills: ["strategy","leader"], note: "Innovation strategy in AI-led markets.", status: "inProgress", almost: true, term: "2026 - Fall - Current",
           url: "https://amberton.edu/courses/mgt5790-ai-driven-innovation-strategy/",
           competencies: [
             "Explaining the core concepts of AI-driven innovation and strategy in business environments.",
@@ -558,7 +717,7 @@
             "Integrating AI tools to enhance collaboration and knowledge management.",
             "Critically assessing the limitations, biases, and interpretability of AI models."
           ] },
-        { code: "COM5469", title: "Leadership Communication", group: "core", credits: 3, seq: 4, skills: ["leader"], note: "Leading and communicating change.", status: "inProgress", term: "Summer 2026",
+        { code: "COM5469", title: "Leadership Communication", group: "core", credits: 3, seq: 4, skills: ["leader"], note: "Leading and communicating change.", status: "completed", term: "Summer 2026",
           url: "https://amberton.edu/courses/com5469-leadership-communication/",
           competencies: [
             "Identifying and examining the communication traits of a successful manager.",
@@ -579,7 +738,7 @@
           ] },
 
         // III. Electives — selected graduate 5000/6000 courses (12 hrs / choose 4)
-        { code: "MGT6705", title: "Strategic Innovation & Leadership", group: "elective", credits: 3, seq: 4, skills: ["strategy", "leader"], note: "Leading innovation and turning ideas into impact.", term: "2027",
+        { code: "MGT6705", title: "Strategic Innovation & Leadership", group: "elective", credits: 3, seq: 4, skills: ["strategy", "leader"], note: "Leading innovation and turning ideas into impact.", status: "inProgress", almost: true, term: "2026 - Fall - Current",
           url: "https://amberton.edu/courses/innovation/",
           competencies: [
             "Evaluating the importance of adapting to today’s marketplace challenges and fostering an innovative organization.",
@@ -757,12 +916,13 @@
     const completion = "1.5 – 3 yrs";
     const completedCredits = D.courses.filter(c => c.status === "completed").reduce((s, c) => s + c.credits, 0);
     const inProgressCredits = D.courses.filter(c => c.status === "inProgress").reduce((s, c) => s + c.credits, 0);
-    const progressPct = D.meta.creditHours ? Math.round((completedCredits + inProgressCredits) / D.meta.creditHours * 100) : 0;
+    const pendingCredits = D.courses.filter(c => c.status === "pending").reduce((s, c) => s + c.credits, 0);
+    const pcls = c => c.status === "pending" ? (/Winter/.test(c.term || "") ? "win" : "spr") : "";
+    const progressPct = D.meta.creditHours ? Math.round((completedCredits + inProgressCredits + pendingCredits) / D.meta.creditHours * 100) : 0;
 
     function navHTML() {
       return `
       <nav class="nav"><div class="nav-inner">
-        <span class="nav-brand">Amberton <span class="dot">·</span> MS in Applied Artificial Intelligence</span>
         <div class="nav-links">
           <a href="#overview">Overview</a>
           <a href="#curriculum">Curriculum</a>
@@ -780,8 +940,7 @@
       return `
       <header class="hero"><div class="wrap">
         <div class="hero-banner">
-          <span class="eyebrow">● My journey · 100% Online</span>
-          <h1>MS in Applied (AI) <span class="grad">Artificial Intelligence</span></h1>
+          <h1>MS in Applied <span class="grad">Artificial Intelligence</span></h1>
         </div>
         <div class="hero-grid">
           <div class="hero-copy">
@@ -808,7 +967,7 @@
         { ico:"📚", num: numCourses, lab:"Milestones Along the Way" },
         { ico:"🗓️", num: D.meta.courseLengthWeeks + " wk", lab:"Per Class • "+D.meta.sessionsPerYear+" Terms/Year" },
         { ico:"⏳", num: completion, lab:"The Road Ahead" },
-        { ico:"📈", num: progressPct + "%", lab:"Completed & In Progress", sub: completedCredits+" cr done · "+inProgressCredits+" cr in progress", hero:true }
+        { ico:"📈", num: progressPct + "%", lab:"Completed, In Progress & Enrolling", sub: completedCredits+" cr done · "+inProgressCredits+" cr in progress · "+pendingCredits+" cr pending enrollment", hero:true }
       ];
       return `
       <section class="block" id="overview"><div class="wrap">
@@ -820,6 +979,7 @@
         <div class="kpi-grid">
           ${kpis.map(k => `<div class="kpi${k.hero ? " kpi-hero" : ""}"><div class="ico">${k.ico}</div><div class="num${k.hero ? " big" : ""}">${esc(k.num)}</div><div class="lab">${esc(k.lab)}</div>${k.sub ? `<div class="ksub">${esc(k.sub)}</div>` : ""}</div>`).join("")}
         </div>
+        <div class="upnext">${D.courses.filter(c => c.status === "pending").map(c => `<div class="upnext-card ${pcls(c)}"><div class="upnext-label">Up next · Pending enrollment</div><div class="upnext-term">${esc(c.term)}</div><div class="upnext-dates">📅 ${esc(c.dates || "Dates not yet published")}<span class="enroll-note">📝 ${esc(c.enroll || "Enrollment dates not yet published")}</span></div><div class="upnext-title">${esc(c.code)} · ${esc(c.title)}</div></div>`).join("")}</div>
         <div class="grid-2" style="margin-top:24px;">
           <div class="card">
             <h3 style="margin:0 0 14px; font-size:18px;">Who chooses this path</h3>
@@ -857,10 +1017,12 @@
       const statusBadge = done
         ? `<div class="badge-done"><span class="tick" aria-hidden="true">✓</span> Completed${c.completedVia ? " · " + esc(c.completedVia) : ""}</div>`
         : inProgress
-        ? `<div class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress</div>`
+        ? `<div class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress${c.almost ? " · almost done" : ""}</div>`
+        : c.status === "pending"
+        ? `<div class="badge-progress ${pcls(c)}"><span class="tick" aria-hidden="true">○</span> Pending enrollment</div>${c.dates ? `<div class="course-dates ${pcls(c)}">📅 ${esc(c.dates)}<span class="enroll-note">📝 ${esc(c.enroll || "")}</span></div>` : ""}`
         : "";
       const seqLabel = c.term ? esc(c.term) : "term " + c.seq;
-      return `<div class="course${done ? " is-done" : ""}${inProgress ? " is-progress" : ""}" style="--g-color:${g.color}">
+      return `<div class="course${done ? " is-done" : ""}${inProgress ? " is-progress" : ""}${c.status === "pending" ? " is-pend " + pcls(c) : ""}" style="--g-color:${g.color}">
         <span class="seqbadge">${seqLabel}</span>
         <div class="code">${esc(c.code)} · ${c.credits} cr</div>
         ${statusBadge}
@@ -924,7 +1086,9 @@
         const mstat = c.status === "completed"
           ? `<span class="m-stat done">✓ ${esc(c.completedVia ? "Transferred" : "Completed")}</span>`
           : c.status === "inProgress"
-          ? `<span class="m-stat prog">● In progress</span>`
+          ? `<span class="m-stat prog">● In progress${c.almost ? " · almost done" : ""}</span>`
+          : c.status === "pending"
+          ? `<span class="m-stat pend ${pcls(c)}">○ ${esc(c.term)}</span>`
           : `<span class="m-stat plan">${esc(c.term || ("Term " + (c.seq || "")))}</span>`;
         return `<tr><th>${codeCell}<br><small>${esc(c.title)}</small><br>${mstat}</th>${cells}</tr>`;
       }).join("");
@@ -980,8 +1144,8 @@
         const badge = done
           ? `<span class="badge-done"><span class="tick" aria-hidden="true">✓</span> Completed${c.completedVia ? " · " + esc(c.completedVia) : ""}</span>`
           : prog
-          ? `<span class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress</span>`
-          : `<span class="cert-planned">${esc(c.term || ("Term " + (c.seq||"")))}</span>`;
+          ? `<span class="badge-progress"><span class="tick" aria-hidden="true">●</span> In progress${c.almost ? " · almost done" : ""}</span>`
+          : `<span class="cert-planned${c.status === "pending" ? " pend " + pcls(c) : ""}">${esc(c.term || ("Term " + (c.seq||"")))}</span>`;
         const name = c.url
           ? `<a class="matrix-link" href="${c.url}" target="_blank" rel="noopener">${esc(c.code)} ↗</a>`
           : esc(c.code);

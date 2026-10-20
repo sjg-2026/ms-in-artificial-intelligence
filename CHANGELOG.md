@@ -5,6 +5,12 @@ Versions are git-tagged — run `git tag -l 'v*'` to list all versions.
 
 ---
 
+## v6 — 2026-10-20 18:50
+**Author:** Seth Gillespie  
+**Change:** feat: update course status for Summer and Fall 2026; add Winter and Spring 2027 pending-enrollment courses with color coding, date ranges and estimated enrollment dates; "Up next" cards; compact layout (about 50% shorter); simplified header and nav
+
+---
+
 ## v5 — 2026-06-21 15:03
 **Author:** Seth Gillespie  
 **Change:** feat: course status tracking, certificate section, collapsible cost
