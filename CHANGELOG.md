@@ -5,6 +5,12 @@ Versions are git-tagged — run `git tag -l 'v*'` to list all versions.
 
 ---
 
+## v7 — 2026-10-20 19:05
+**Author:** Seth Gillespie  
+**Change:** feat: new Journal tab with six Fall 2026 class papers set as journal articles (abstract, keywords, numbered sections, references); page copy rewritten in third person as Dr. Gillespie; tuned wording throughout
+
+---
+
 ## v6 — 2026-10-20 18:50
 **Author:** Seth Gillespie  
 **Change:** feat: update course status for Summer and Fall 2026; add Winter and Spring 2027 pending-enrollment courses with color coding, date ranges and estimated enrollment dates; "Up next" cards; compact layout (about 50% shorter); simplified header and nav

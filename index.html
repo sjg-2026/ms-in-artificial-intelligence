@@ -526,6 +526,33 @@
   [data-theme="dark"] .btn-true-value { background:#fff; color:#000; border-color:#fff; }
   [data-theme="dark"] .btn-true-value:hover { background:#f5f5f7; color:#000; }
 </style>
+
+<style>
+/* ===== Journal (case studies) ===== */
+.jr-banner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:10px 0;margin:0 0 18px;border-top:3px double var(--text-primary);border-bottom:1px solid var(--text-primary);font:600 12px/1.4 Georgia,'Times New Roman',serif;letter-spacing:.14em;text-transform:uppercase}
+.jr-art{background:var(--bg-secondary);border:1px solid rgba(128,128,128,.25);border-radius:6px;padding:28px 32px;margin:0 0 18px;font-family:Georgia,'Times New Roman',serif}
+.jr-type{font:600 11px/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.jr-title{margin:0 0 8px;font:700 28px/1.2 Georgia,'Times New Roman',serif;letter-spacing:-.01em}
+.jr-by{margin:0 0 2px;font-size:16px}
+.jr-aff{margin:0 0 16px;font-size:13px;color:var(--text-secondary);font-style:italic}
+.jr-abs{border-top:1px solid rgba(128,128,128,.3);border-bottom:1px solid rgba(128,128,128,.3);padding:12px 0;margin:0 0 10px;font-size:15px;line-height:1.65}
+.jr-abs b{font-variant:small-caps;letter-spacing:.06em;margin-right:6px}
+.jr-kw{font-size:13px;color:var(--text-secondary);margin:0 0 14px}
+.jr-kw b{color:var(--text-primary);font-variant:small-caps;letter-spacing:.06em}
+.jr-body{columns:2 300px;column-gap:36px;text-align:justify;hyphens:auto;font-size:15px;line-height:1.7;margin-top:6px}
+.jr-body h4{margin:16px 0 4px;font:700 13px/1.3 Georgia,serif;letter-spacing:.04em;text-transform:uppercase;break-after:avoid}
+.jr-body h4:first-child{margin-top:0}
+.jr-body p{margin:0 0 8px}
+.jr-refs{margin:18px 0 0;padding-top:12px;border-top:1px solid rgba(128,128,128,.3);font-size:13px;line-height:1.55;color:var(--text-secondary)}
+.jr-refs p{margin:0 0 4px;padding-left:22px;text-indent:-22px}
+.jr-soon{border:1px dashed rgba(128,128,128,.4);border-radius:6px;padding:14px 18px;color:var(--text-secondary);font-size:14px;font-family:Georgia,serif;font-style:italic}
+@media (max-width:640px){.jr-art{padding:20px 16px}.jr-title{font-size:23px}.jr-body{columns:1;text-align:left}}
+</style>
+<style>
+body.view-journal #app > *:not(#journal):not(footer){display:none !important}
+body:not(.view-journal) #journal{display:none !important}
+.nav-links a.active{color:var(--text-primary);font-weight:600}
+</style>
 </head>
 <body>
   <!-- ============ APP MOUNTS HERE ============ -->
@@ -552,25 +579,25 @@
         courseLengthWeeks: 10,
         sessionsPerYear: 4,
         sourceUrl: "https://amberton.edu/degree-programs/master-of-science-applied-artificial-intelligence",
-        version: "v5",
+        version: "v7",
         repoUrl: "https://github.com/sjg-2026/ms-in-artificial-intelligence"
       },
 
-      mission: "Graduate degree for leaders and innovators in an increasingly AI-driven business landscape. Blending academic theory with hands-on practice — including access to exclusive AI Testing Environments — enabling graduates to lead in AI adoption, not just observe it.",
+      mission: "Amberton's MS in Applied AI is built for working professionals. It pairs theory with hands-on practice, including Amberton's AI testing environments, so graduates can lead AI adoption instead of watching it happen.",
 
       audience: [
-        "Professionals choosing to grow, even while carrying a full career",
-        "Leaders willing to invest their evenings and weekends in mastery",
-        "People who want their effort to mean something to their team",
-        "Dedicated learners balancing work, life, and a commitment to better"
+        "Working professionals who want to keep growing",
+        "Leaders willing to give up evenings and weekends",
+        "People who want the work to matter to their team",
+        "Learners balancing work, life, and school"
       ],
 
       outcomes: [
-        "Carry AI-driven solutions back to the people who depend on me",
-        "Lead AI adoption with confidence, judgment, and integrity",
-        "Champion ethical, responsible AI my organization can trust",
-        "Turn hard-won analytical skill into better decisions for my team",
-        "Become the colleague others look to as the world shifts to AI"
+        "Bring AI solutions back to the people who rely on him",
+        "Lead AI adoption with good judgment and integrity",
+        "Push for ethical, responsible AI in his organization",
+        "Turn analytical skill into better decisions for his team",
+        "Be the person colleagues come to as AI changes the work"
       ],
 
       // ===== SKILLS (competency taxonomy) =====
@@ -815,17 +842,17 @@
       electiveRule: "Choose 12 hrs (4 courses) from graduate-level 5000/6000 courses.",
 
       groups: {
-        required: { label: "Required Graduate Studies", hrs: 6, blurb: "Where the journey begins — the rigor and integrity that ground everything I'll build.", color: "var(--accent-3)" },
-        core:     { label: "Major Requirements", hrs: 18, blurb: "The heart of the climb: from first principles to leading real change with confidence.", color: "var(--accent)" },
-        elective: { label: "Electives", hrs: 12, blurb: "My path, my choice — shaping the journey around the difference I want to make.", color: "var(--accent-2)" }
+        required: { label: "Required Graduate Studies", hrs: 6, blurb: "The foundation: research methods and ethics.", color: "var(--accent-3)" },
+        core:     { label: "Major Requirements", hrs: 18, blurb: "The core: AI, analytics, and leading change.", color: "var(--accent)" },
+        elective: { label: "Electives", hrs: 12, blurb: "Electives Dr. Gillespie picked to fit his work.", color: "var(--accent-2)" }
       },
 
       // ===== CAREER PATHS the degree prepares for =====
       careers: [
-        { role: "Agentic AI Engineer", icon: "🤖", blurb: "Design and orchestrate autonomous agents that plan, reason, and act." },
-        { role: "Machine Learning Engineer", icon: "🧠", blurb: "Build, train, and ship models from prototype to production." },
+        { role: "Agentic AI Engineer", icon: "🤖", blurb: "Build agents that plan, reason, and act on their own." },
+        { role: "Machine Learning Engineer", icon: "🧠", blurb: "Build, train, and ship models to production." },
         { role: "MLOps / AI Platform Engineer", icon: "⚙️", blurb: "Automate the pipelines, deployment, and monitoring that keep AI running." },
-        { role: "Data Engineer", icon: "🗄️", blurb: "Architect the data foundations that power every model and decision." },
+        { role: "Data Engineer", icon: "🗄️", blurb: "Build the data foundations every model depends on." },
         { role: "Applied AI / LLM Engineer", icon: "🚀", blurb: "Fine-tune, evaluate, and integrate LLMs into real products." }
       ],
 
@@ -861,11 +888,11 @@
 
       // The five ways this journey lets me create real value.
       pillars: [
-        { key: "decision",   icon: "🧠", title: "Sharper Decisions",      blurb: "I'll learn to turn data into decisions my team can stand behind." },
-        { key: "efficiency", icon: "⚙️", title: "Lighter Load for Others", blurb: "I'll find where AI removes friction, giving my colleagues their time back." },
-        { key: "strategy",   icon: "🎯", title: "A Clearer Path Forward",  blurb: "I'll see where AI creates real advantage — and help my organization get there." },
-        { key: "productivity",icon: "📈", title: "A Stronger Team",         blurb: "I'll lift the people around me to do their best work alongside AI." },
-        { key: "readiness",  icon: "🔮", title: "Ready for What's Next",    blurb: "I'll prepare my people and processes for the future, responsibly." }
+        { key: "decision",   icon: "🧠", title: "Sharper Decisions",      blurb: "Dr. Gillespie will turn data into decisions his team can stand behind." },
+        { key: "efficiency", icon: "⚙️", title: "Less Busywork", blurb: "Dr. Gillespie will find where AI takes friction out of the work and gives people time back." },
+        { key: "strategy",   icon: "🎯", title: "Clearer Direction",  blurb: "Dr. Gillespie will spot where AI gives a real advantage and help his organization get there." },
+        { key: "productivity",icon: "📈", title: "A Stronger Team",         blurb: "Dr. Gillespie will help the people around him do their best work with AI." },
+        { key: "readiness",  icon: "🔮", title: "Ready for What's Next",    blurb: "Dr. Gillespie will get people and processes ready for what's coming, responsibly." }
       ],
 
       // Horizontal bar: relative organizational impact of each leadership capability.
@@ -926,6 +953,7 @@
         <div class="nav-links">
           <a href="#overview">Overview</a>
           <a href="#curriculum">Curriculum</a>
+          <a href="#journal">Journal</a>
           <a href="#certificate">Certificate</a>
           <a href="#skills">Skills</a>
           <a href="#value">Value</a>
@@ -963,18 +991,18 @@
 
     function overviewHTML() {
       const kpis = [
-        { ico:"🎓", num: D.meta.creditHours, lab:"Credits I'll Earn" },
-        { ico:"📚", num: numCourses, lab:"Milestones Along the Way" },
+        { ico:"🎓", num: D.meta.creditHours, lab:"Credits" },
+        { ico:"📚", num: numCourses, lab:"Courses" },
         { ico:"🗓️", num: D.meta.courseLengthWeeks + " wk", lab:"Per Class • "+D.meta.sessionsPerYear+" Terms/Year" },
-        { ico:"⏳", num: completion, lab:"The Road Ahead" },
+        { ico:"⏳", num: completion, lab:"Time to Finish" },
         { ico:"📈", num: progressPct + "%", lab:"Completed, In Progress & Enrolling", sub: completedCredits+" cr done · "+inProgressCredits+" cr in progress · "+pendingCredits+" cr pending enrollment", hero:true }
       ];
       return `
       <section class="block" id="overview"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">📋 Program Overview</div>
-          <h2 class="sec-title">A graduate degree for AI leaders, not bystanders.</h2>
-          <p class="sec-sub">I've chosen to invest in myself — and in everyone who'll benefit from who I become. Here's the shape of the commitment ahead.</p>
+          <h2 class="sec-title">Dr. Gillespie's MS in Applied AI at a glance.</h2>
+          <p class="sec-sub">Dr. Gillespie is doing this while working full time. Here is where he stands.</p>
         </div>
         <div class="kpi-grid">
           ${kpis.map(k => `<div class="kpi${k.hero ? " kpi-hero" : ""}"><div class="ico">${k.ico}</div><div class="num${k.hero ? " big" : ""}">${esc(k.num)}</div><div class="lab">${esc(k.lab)}</div>${k.sub ? `<div class="ksub">${esc(k.sub)}</div>` : ""}</div>`).join("")}
@@ -982,11 +1010,11 @@
         <div class="upnext">${D.courses.filter(c => c.status === "pending").map(c => `<div class="upnext-card ${pcls(c)}"><div class="upnext-label">Up next · Pending enrollment</div><div class="upnext-term">${esc(c.term)}</div><div class="upnext-dates">📅 ${esc(c.dates || "Dates not yet published")}<span class="enroll-note">📝 ${esc(c.enroll || "Enrollment dates not yet published")}</span></div><div class="upnext-title">${esc(c.code)} · ${esc(c.title)}</div></div>`).join("")}</div>
         <div class="grid-2" style="margin-top:24px;">
           <div class="card">
-            <h3 style="margin:0 0 14px; font-size:18px;">Who chooses this path</h3>
+            <h3 style="margin:0 0 14px; font-size:18px;">Who this degree is for</h3>
             <ul class="clean">${D.audience.map(a => `<li><span class="tick">→</span><span>${esc(a)}</span></li>`).join("")}</ul>
           </div>
           <div class="card">
-            <h3 style="margin:0 0 14px; font-size:18px;">Who I'll become</h3>
+            <h3 style="margin:0 0 14px; font-size:18px;">What Dr. Gillespie wants out of it</h3>
             <ul class="clean">${D.outcomes.map(o => `<li><span class="tick">✓</span><span>${esc(o)}</span></li>`).join("")}</ul>
           </div>
         </div>
@@ -1004,7 +1032,7 @@
         const link = c.url ? `<a class="course-link" href="${c.url}" target="_blank" rel="noopener">View official course page ↗</a>` : "";
         expand = `
           <button class="course-toggle" aria-expanded="false" aria-controls="${cid}" onclick="toggleCourse(this)">
-            <span class="ct-label">The strengths I'll carry forward</span>
+            <span class="ct-label">What this course covers</span>
             <span class="ct-chev" aria-hidden="true">⌄</span>
           </button>
           <div class="course-detail" id="${cid}" hidden>
@@ -1057,8 +1085,8 @@
       <section class="block" id="curriculum"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">🗺️ Curriculum Map</div>
-          <h2 class="sec-title">36 credits, sequenced from foundations to leadership.</h2>
-          <p class="sec-sub">Each course is a milestone on the path — and a real investment of my time and focus. Open any one to see the strengths I'll carry forward.</p>
+          <h2 class="sec-title">36 credits, from foundations to leadership.</h2>
+          <p class="sec-sub">Twelve courses. Open any one to see what it covers.</p>
         </div>
         <div class="seq-legend">${legend}</div>
         ${tracks}
@@ -1099,8 +1127,8 @@
       <section class="block" id="skills"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">🧩 Skills & Competencies</div>
-          <h2 class="sec-title">Every course maps to an in-demand AI skill.</h2>
-          <p class="sec-sub">Every milestone I complete builds a real, lasting strength — the kind my team will feel long after the work is done. Darker means it's at the heart of that course.</p>
+          <h2 class="sec-title">What each course builds.</h2>
+          <p class="sec-sub">Darker means the course focuses on that skill.</p>
         </div>
         <div class="matrix-scroll">
           <table class="matrix">
@@ -1125,8 +1153,8 @@
       <section class="block" id="careers"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">💼 Career Outcomes</div>
-          <h2 class="sec-title">Roles this degree is built to unlock.</h2>
-          <p class="sec-sub">Where this journey can lead — not just a title, but the chance to make a real difference for the people who count on me.</p>
+          <h2 class="sec-title">Roles this degree can lead to.</h2>
+          <p class="sec-sub">Where this can go.</p>
         </div>
         <div class="career-grid">
           ${D.careers.map(c => `<div class="career"><div class="ci">${c.icon}</div><div class="cr">${esc(c.role)}</div><div class="cb">${esc(c.blurb)}</div></div>`).join("")}
@@ -1160,8 +1188,8 @@
       <section class="block" id="certificate"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">🎖️ Graduate Certificate</div>
-          <h2 class="sec-title">A stackable credential I earn along the way.</h2>
-          <p class="sec-sub">${esc(cert.name)} — ${esc(cert.hours)} credits. Every course it requires is already part of my degree plan, so this credential comes built into the journey.</p>
+          <h2 class="sec-title">The graduate certificate comes with it.</h2>
+          <p class="sec-sub">${esc(cert.name)} — ${esc(cert.hours)} credits. All four of its courses are already in his degree plan.</p>
         </div>
         <div class="card">
           <p style="margin:0 0 18px; color:var(--text-secondary); font-size:15px; line-height:1.6;">${esc(cert.overview)}</p>
@@ -1199,13 +1227,13 @@
       <section class="block" id="value"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">💡 Why It Matters</div>
-          <h2 class="sec-title">My growth compounds into real value for the people I serve.</h2>
-          <p class="sec-sub">The effort I'm choosing to give comes back as something real — sharper decisions, lighter loads, and a team that's ready for what's next. This is what my dedication makes possible.</p>
+          <h2 class="sec-title">What this is worth to his organization.</h2>
+          <p class="sec-sub">Better decisions, less busywork, and a team that's ready for what's next.</p>
         </div>
 
         <div class="stat-strip">${strip}</div>
 
-        <h3 style="font-size:20px; font-weight:600; margin:8px 0 18px;">Five ways my dedication creates real value</h3>
+        <h3 style="font-size:20px; font-weight:600; margin:8px 0 18px;">Five ways this pays off</h3>
         <div class="career-grid" style="margin-bottom:32px;">${pillars}</div>
 
         <div class="chart-grid">
@@ -1232,8 +1260,8 @@
         </div>
 
         <div class="card" style="margin-top:24px;">
-          <h3 style="margin:0 0 4px; font-size:18px;">What my organization gains when I walk this path</h3>
-          <p class="src" style="margin:0 0 16px;">How this applied, human-centered journey compares to the alternatives.</p>
+          <h3 style="margin:0 0 4px; font-size:18px;">What his organization gets from this path</h3>
+          <p class="src" style="margin:0 0 16px;">How this program compares to the alternatives.</p>
           <div style="overflow-x:auto;">
           <table class="cmp">
             <thead><tr><th>Organizational priority</th><th>This program</th><th>Technical MS in AI/ML</th><th>Generic MBA</th></tr></thead>
@@ -1242,7 +1270,7 @@
               <tr><td>Applied to real business processes</td><td class="hl">Core focus</td><td>Research-oriented</td><td>Broad, not AI-specific</td></tr>
               <tr class="me"><td>Responsible-AI governance</td><td class="hl">Built in (RGS6036)</td><td>Sometimes</td><td>Rare</td></tr>
               <tr><td>Predictive analytics for decisions</td><td class="hl">Core (MGT6785)</td><td>Core</td><td>Limited</td></tr>
-              <tr class="me"><td>Fits working professionals</td><td class="hl">100% online, 10-wk terms</td><td>Often on-campus</td><td>Mixed</td></tr>
+              <tr class="me"><td>Fits working professionals</td><td class="hl">Online, 10-week terms</td><td>Often on-campus</td><td>Mixed</td></tr>
               <tr><td>Best for the organization when…</td><td class="hl">Leading AI adoption</td><td>Building AI products</td><td>Broad upskilling</td></tr>
             </tbody>
           </table>
@@ -1265,8 +1293,8 @@
       <section class="block" id="cost"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">💰 Cost</div>
-          <h2 class="sec-title">Accessible, transparent tuition — under $1,000 per class.</h2>
-          <p class="sec-sub">A flat per-credit rate with no hidden fees, so I can plan my investment one class at a time.</p>
+          <h2 class="sec-title">Tuition: under $1,000 per class.</h2>
+          <p class="sec-sub">Flat per-credit rate, no hidden fees. Easy to plan one class at a time.</p>
         </div>
         <details class="disclose">
           <summary class="disclose-sum">
@@ -1284,6 +1312,180 @@
     }
 
     /* ===== MOUNT ===== */
+
+    /* ===== JOURNAL: class papers as journal articles (third person) ===== */
+    D.cases = [
+      {
+        type: "Case Study", course: "MGT 6705 · Strategic Innovation & Leadership", week: "Week 2", date: "09/27/2026", prof: "Dr. Ron C. Darnell",
+        title: "Innovation Models and Types Analysis: The Apple iPhone",
+        abstract: "The iPhone was not the first smartphone, yet it reshaped the market. This case study runs the 2007 launch through Tidd and Bessant's 4 Ps of innovation and the Five Whys from design thinking, then looks at its disruptive potential and the managed process behind it. Dr. Gillespie draws the lesson that innovation survives any one leader because it can be run as a process.",
+        keywords: "iPhone, 4 Ps of innovation, disruptive innovation, Five Whys, stealth innovation",
+        sections: [
+          ["1. Introduction", "Apple released the iPhone in January 2007 without being first to market. Tidd and Bessant (2025) treat innovation as a core business process, not a spontaneous event, and Goffin and Mitchell (2025) tie it to strategic intent. Apple's earlier wins with the iPod and its computers may have given leadership the confidence to make a bold move."],
+          ["2. The Innovation", "A touch-only experience with no keyboard, full web browsing, and an operating system that let users install apps. The App Store was not there at launch, but hundreds of apps arrived within a year. Apple's (2024) filings show iPhone sales in the hundreds of billions of dollars, with services alone near 100 billion."],
+          ["3. Type of Innovation", "Through the 4 Ps: the multi-touch interface was a product innovation; designing its own processor, operating system and experience was a process innovation; a higher-priced consumer device sold to business buyers was a positional innovation; and the revenue-sharing App Store ecosystem was a paradigm shift, arguably a radical one."],
+          ["4. Value Creation", "Using Estes's (2025) Five Whys, Dr. Gillespie asks: can one device replace a phone, camera, music player and laptop-era app store? Simplicity, and choices like skipping the stylus, delivered the customer value. Was the risk worth it for Apple, after failures like the Lisa? Today the iPhone generates about half of Apple's revenue and created a services arm. Would it matter to the industry? The app economy behind Uber, Instagram and mobile banking says yes. And Apple accepted self-cannibalization of the iPod and iPad. This is the discontinuous innovation Tidd and Bessant describe."],
+          ["5. Disruptive Potential", "In Christensen's terms, the iPhone disrupted standalone phones, MP3 players, digital cameras and GPS devices. It launched at a much higher price than typical consumer devices, which the advanced materials and technology required."],
+          ["6. Innovation as a Managed Process", "Goffin and Mitchell (2025) point to ideation, teams, planning and early-stage decisions. Apple prototypes in secret, the “stealth innovation” they describe. Planning let outcomes be judged, and early-stage decisions likely shaped the radical design."],
+          ["7. AI Reflection", "Dr. Gillespie used Claude Code for research, brainstorming and APA 7 checks, then reviewed, revised and expanded the output with his own analysis and the provided citations. Grammarly checked sentence structure and spelling."],
+          ["8. Leadership Lesson", "Dr. Gillespie draws inspiration from the people who built the product. The takeaway: innovation is not tied to one company, and after Steve Jobs it clearly does not depend on one leader. It can be managed as a process."],
+          ["9. Conclusion", "The iPhone is a model case in innovation. The question it leaves: which functions could be combined into a single product or tool?"]
+        ],
+        refs: [
+          "Anthropic. (2026). <i>Claude Code</i> [Large language model]. https://www.anthropic.com",
+          "Apple Inc. (2024). <i>Form 10-K for the fiscal year ended September 28, 2024</i>. U.S. Securities and Exchange Commission.",
+          "Estes, R. (2025). <i>Design thinking: A guide to innovation</i>. Twenty-First Century Books.",
+          "Goffin, K., & Mitchell, R. (2025). <i>Innovation management: Effective strategy and implementation</i> (4th ed.). Bloomsbury Academic.",
+          "Grammarly. (2026). <i>Grammarly</i> [Writing assistant]. https://www.grammarly.com",
+          "Tidd, J., & Bessant, J. (2025). <i>Managing innovation: Integrating technological, market and organizational change</i> (8th ed.). Wiley."
+        ]
+      },
+      {
+        type: "Paper", course: "MGT 5710 · Applied AI for Business", week: "Week 3", date: "10/04/2026", prof: "Dr. John Sinclair",
+        title: "AI Applications in Information Technology and Program Management",
+        abstract: "Enterprise IT produces millions of logs and alerts a day, more than people can read. This paper examines two applications of AI: generative and predictive AI for incident management, and agentic tools for program management and service delivery. It weighs the opportunities against the human challenges of adoption and argues that leaders need a disciplined business case, not novelty.",
+        keywords: "incident management, generative AI, agentic AI, program management, adoption",
+        sections: [
+          ["1. Introduction", "AI is increasingly the tool of choice for taming IT-scale data. Yao and Koidan (2024) single out generative AI for its business applicability, and Marr (2025) notes its growing role in detecting threats such as spam and breaches."],
+          ["2. Incident Management", "Generative AI can write plain-language log summaries, correlate related alerts into one incident, suggest probable causes and draft remediation steps. In Dr. Gillespie's experience, the hard part of a major incident is not collecting information but making sense of it and building an actionable story. Pairing generative AI with predictive AI covers both ends: anticipating incidents and resolving current escalations fast."],
+          ["3. Program Management and Service Delivery", "Project managers traditionally build plans, Gantt charts and reports by hand. Agentic tools such as Claude Code let managers and engineers delegate programming, configuration and documentation to an agent, compressing hours or days into minutes, and can produce stakeholder dashboards just as quickly."],
+          ["4. Opportunities", "The opportunity is to advocate for AI inside an organization, despite early concerns about privacy and security. Gains include efficiency, productivity and customer satisfaction: faster root-cause analysis shortens outages and eases alert fatigue, and automated reports free project managers for risk management and stakeholder work. Business cases presented to senior management are how adoption starts."],
+          ["5. Challenges", "Without clear objectives and risk responses, adoption stalls. Estes (2025) stresses the empathize phase: frame the problem around real human needs and feelings. Some people fear for their jobs or have been burned by hallucinated reports. Those human factors belong in the business case."],
+          ["6. Conclusion", "IT and business leaders should advocate for AI ethically and productively, with a disciplined assessment and a real business benefit behind each tool. Incident management has the clearest case; program management tooling benefits project managers directly."],
+          ["7. AI Use Disclosure", "Dr. Gillespie used Claude Code to organize research and draft portions, and Grammarly for grammar and clarity. He reviewed, revised and verified all content and takes responsibility for the final work."]
+        ],
+        refs: [
+          "Anthropic. (2026). <i>Claude Code</i> [Large language model]. https://www.anthropic.com",
+          "Estes, R. (2025). <i>Design thinking: A guide to innovation</i>. Twenty-First Century Books.",
+          "Grammarly. (2026). <i>Grammarly</i> [Writing assistant]. https://www.grammarly.com",
+          "Marr, B. (2025). <i>AI strategy: Unleash the power of artificial intelligence in your business</i>. Kogan Page.",
+          "Yao, M., & Koidan, K. (2024). <i>Applied artificial intelligence: A handbook for business leaders</i> (2nd ed.). TOPBOTS."
+        ]
+      },
+      {
+        type: "Presentation", course: "MGT 5710 · Applied AI for Business", week: "Week 3", date: "10/04/2026", prof: "Dr. John Sinclair",
+        title: "Automating the Out-of-Office: An AI Absence Bot",
+        abstract: "A conversational bot that records an employee's absence and sets the email auto-reply with the manager as backup, built in BoodleBox's Vibe Bot Builder Lite on GPT-5 mini. Dr. Gillespie tested it, found where it needed guardrails, and took away a design lesson: collect every field up front with a structured request.",
+        keywords: "chatbot, process automation, BoodleBox, privacy, structured requests",
+        sections: [
+          ["1. What Was Built", "A four-step flow. The employee reports sick, vacation or jury duty; the bot captures start and end dates and times; a directory lookup verifies the manager as backup; the out-of-office reply is posted in Google Workspace. Marr (2025) calls intelligent chatbots one of the most common ways companies will deploy AI."],
+          ["2. Test 1", "Given a plain-language request, the bot captured name, absence type and start date, then asked five follow-up questions."],
+          ["3. Why This Process", "It is a small task people forget at the worst moment. It is frequent and rule-based, time-sensitive when sick days start without warning, and visible when missed. Clear data sources and a narrow scope make it a low-risk first AI project."],
+          ["4. Benefits", "Key details from one plain sentence, follow-up questions instead of guesses, and a consistent formal reply that names a backup contact."],
+          ["5. Risks", "Privacy: the Test 1 draft said “sick leave,” so neutral wording is needed. The manager lookup failed in Test 1, so the directory must be connected. Mailbox access calls for least privilege and audit logs."],
+          ["6. Future Potential", "Sync leave balances with HR and payroll, block calendars and update chat status, and alert the manager with coverage suggestions."],
+          ["7. Lesson Learned", "Test 1 needed five follow-ups. A structured request template in the bot (reason, start, end, manager, auto-apply, reply scope) would collect every field up front and make automation safe."],
+          ["8. AI Use Disclosure", "Dr. Gillespie used Claude Code to organize research and draft portions, and Grammarly for grammar and clarity, and verified all content himself."]
+        ],
+        refs: [
+          "Anthropic. (2026). <i>Claude Code</i> [Large language model]. https://www.anthropic.com",
+          "Boodle.ai. (2026). <i>BoodleBox</i>. https://box.boodle.ai",
+          "Grammarly. (2026). <i>Grammarly</i> [Writing assistant]. https://www.grammarly.com",
+          "Marr, B. (2025). <i>AI strategy</i>. Kogan Page.",
+          "OpenAI. (2025). <i>GPT-5 mini</i> [Large language model]. https://developers.openai.com/api/docs/models/gpt-5-mini"
+        ]
+      },
+      {
+        type: "Strategy Memo", course: "MGT 6705 · Strategic Innovation & Leadership", week: "Week 3", date: "10/04/2026", prof: "Dr. Ron C. Darnell",
+        title: "Managing Strategic Innovation at LEGO Group",
+        abstract: "Written as a memo to LEGO's senior marketing director, this paper looks at how an integrated innovation strategy can extend the company's turnaround. It applies Goffin and Mitchell's innovation framework and Tidd and Bessant's risk and reward lens, and recommends a $500,000 prototype program built on the Mindstorms co-creation model.",
+        keywords: "LEGO, innovation strategy, co-creation, Mindstorms, risk and reward",
+        sections: [
+          ["1. Purpose", "To show how integrated innovation strategy can drive LEGO Group's corporate turnaround and competitive advantage, using Goffin and Mitchell (2025) for strategy and Tidd and Bessant (2025) for risk and reward."],
+          ["2. Organization and Environment", "LEGO is a global toy and entertainment company facing short product life cycles, intense competition and a newer digital front. Overdiversification and failed ventures in the early 2000s, including theme parks, took it near bankruptcy. The restructured strategy balances heritage with innovation and tighter governance (Robertson & Breen, 2013)."],
+          ["3. Innovation Strategy", "Using Goffin and Mitchell's innovation pentathlon: ideas from the original portfolio and partners like Disney, Marvel and Star Wars; selection across kid and adult audiences; implementation on proven manufacturing with rapid prototyping; strategy built around getting the right product to the right market at the right time; and a people-and-culture foundation of hiring well and encouraging creativity."],
+          ["4. Marketplace Adaptation", "The Mindstorms line showed the value of involving consumers in ideation, creation and development. Their non-disclosure agreements and discoveries exchange ideas with LEGO without making them employees. The recommendation: apply those practices to new products, starting with a modest $500,000 budget to put prototypes in front of prior play-partners."],
+          ["5. Risk and Reward", "Risk: “digital is different” (Tidd & Bessant, 2025, p. 50), and Moore's Law means LEGO must keep current. Release digital concepts one at a time and watch the market response before major investment. Reward: co-creators and a social-network focus can lead to discrete innovation, and LEGO's online audience and retail stores are a ready test market."],
+          ["6. Actionable Initiative", "Embrace the past while rewarding new ideas, selection, implementation and partnership. Mindstorms proved that outside collaboration can bring a new product to life and let it be iterated before mass production. The $500,000 early play-testing investment is the first step into digital."],
+          ["7. AI Reflection", "Dr. Gillespie built the memo with NotebookLM, which hallucinated page numbers and references, gave no LEGO background, and missed the Mindstorms case study that Dr. Gillespie found in Goffin and Mitchell on his own. He found a definitive source for LEGO's history, used Claude to check APA 7, and Grammarly for spelling and structure."],
+          ["8. Leadership Recommendation", "The memo's items tie closely to both textbooks. Applying those frameworks is how proven innovation strategy gets all the way to execution."]
+        ],
+        refs: [
+          "Anthropic. (2026). <i>Claude (Opus 5.5 version)</i> [Large language model]. https://claude.ai",
+          "Goffin, K., & Mitchell, R. (2025). <i>Innovation management: Effective strategy and implementation</i> (4th ed.). Bloomsbury Academic.",
+          "Google. (2026). <i>NotebookLM</i> [Large language model]. https://notebooklm.google.com",
+          "Grammarly. (2026). <i>Grammarly</i> [Writing assistant]. https://www.grammarly.com",
+          "Robertson, D., & Breen, B. (2013). <i>Brick by brick: How LEGO rewrote the rules of innovation and conquered the global toy industry</i>. Crown Business.",
+          "Tidd, J., & Bessant, J. (2025). <i>Managing innovation: Integrating technological, market and organizational change</i> (8th ed.). Wiley."
+        ]
+      },
+      {
+        type: "Case Study", course: "MGT 6705 · Strategic Innovation & Leadership", week: "Week 4", date: "10/10/2026", prof: "Dr. Ron C. Darnell",
+        title: "Pixar: Culture, Leadership, and Future Innovation Challenges",
+        abstract: "Pixar built its animation tools before the internet era and turned them into films that broke the limits of computer technology. Drawing on Ed Catmull's Harvard Business Review article, this case study examines how Pixar's culture, teams and communication drive innovation, and why its postmortems matter most. Dr. Gillespie recommends two practices: the balanced postmortem and open communication without proper channels.",
+        keywords: "Pixar, organizational culture, postmortems, communication, leadership",
+        sections: [
+          ["1. Introduction and Background", "Pixar fostered creativity through computer-animation tools and software developed well before the internet became popular, then pivoted that technology into films that broke the technical limits of their time."],
+          ["2. Innovation Culture", "Catmull (2008) argues that good ideas are not the limiting factor. His account of Pixar's success covers empowering creatives, a peer culture, freer communication, a learning environment, and getting more out of postmortems."],
+          ["3. Role of Teams", "Giving creative people control of multiple stages of an idea's development makes teams cross-functional across directors, writers and storyboard artists (Catmull, 2008). Dr. Gillespie has worked at companies whose management skipped this and focused on bottom-line results, limiting creative ways to improve processes."],
+          ["4. Leadership and Communication", "Pixar's teams solve complex problems without asking senior management for permission. Managers do not have to be first to know and can “walk into a meeting and be surprised” (Catmull, 2008, p. 70). Dr. Gillespie finds this refreshing, since that kind of openness is rarely tolerated in the organizations he has worked in."],
+          ["5. Barriers to Innovation", "Teams often fear postmortems because they can expose individual or team performance. Pixar's version asks for both sides: the top five things to do again and the top five not to do again. Positive postmortem documentation is rare in IT management, and Dr. Gillespie applauds Pixar for making it normal."],
+          ["6. Leadership Recommendation", "Tidd and Bessant (2025, p. 175) discuss “dark” leadership traits and innovation, and Dr. Gillespie has seen them in companies he has worked for. If a company focused on just two things, they should be the Pixar-style postmortem with both positives and improvements, and an open style of communication where proper channels fall away."],
+          ["7. AI Reflection", "Dr. Gillespie used NotebookLM, which linked to paywalled sources. The free versions he found lacked page numbers, which made citing harder. Next time he plans to go back to Claude Code, which gave more reliable sources."]
+        ],
+        refs: [
+          "Catmull, E. (2008). How Pixar fosters collective creativity. <i>Harvard Business Review, 86</i>(9), 64–72. https://hbr.org/2008/09/how-pixar-fosters-collective-creativity",
+          "Google. (2026). <i>NotebookLM</i> [Large language model]. https://notebooklm.google.com",
+          "Tidd, J., & Bessant, J. (2025). <i>Managing innovation: Integrating technological, market and organizational change</i> (8th ed.). Wiley."
+        ]
+      },
+      {
+        type: "Case Study", course: "MGT 6705 · Strategic Innovation & Leadership", week: "Week 5", date: "10/17/2026", prof: "Dr. Ron C. Darnell",
+        title: "Sources of Innovation in the Semiconductor Industry",
+        abstract: "AI-driven demand for memory chips has produced shortages and price spikes that Dr. Gillespie's own team has had to absorb. This case study reflects on how the industry got here before proposing a fix, using design thinking and Tidd and Bessant's innovation search-space map. It locates the friction in silos, multi-vendor handoffs, and qualification delays, and points to industry partnership, in the style of IBM's open foundry model, as a way forward. It closes with a personal leadership lesson: step back before leaping to a solution.",
+        keywords: "semiconductors, AI demand, design thinking, sources of innovation, partnership",
+        sections: [
+          ["1. Introduction", "In Dr. Gillespie's industry, AI-driven demand for memory chips has caused shortages and price increases the team has had to bear. Industry watchers call it “RAMageddon.” Deloitte analysts (Kusters et al., 2026) say the squeeze could last until 2029 or 2030 if hyperscaler demand continues. The aim here is to find where innovation can reduce team communication friction: silos, multi-vendor gaps, and qualification delays."],
+          ["2. Context", "Demand comes from consumers, who need memory for laptops and phones, and from service providers, who need it for the data centers that serve AI models. Both are growing at a scale not seen in recent times."],
+          ["3. The Innovation Opportunity", "Following Estes (2025), Dr. Gillespie reflected on how the challenge arose before reaching for a solution. His own team saw the AI demand coming and did little to plan for the supply behind it. A refined NotebookLM prompt surfaced the three friction points above. Addressing them would carry both an opportunity and a cost that has to fit the company's budget."],
+          ["4. Source of Innovation", "The primary force is the surge in AI demand, sitting on top of infrastructure constraints and slow handoffs. On Tidd and Bessant's (2025, p. 270) map, rising environmental complexity pushes an industry from exploiting what exists toward reframing its infrastructure, and from incremental toward radical change, which together create a co-evolution space. Dr. Gillespie reads the early PC era as exploitation with low demand and few competitive avenues. Today, pent-up demand and high prices are driving fierce competition among OpenAI, Google, Microsoft, Meta and others. He expects that competition to bring prices down eventually, after a volatile stretch."],
+          ["5. Value Creation", "Organizations create value by offering fewer delays and faster qualification of new chip designs at a price consumers will pay. Lower communication barriers are how they get there."],
+          ["6. From Idea to Initiative", "Partnership is one practical path. Many designs are proprietary, but limited resources can still be shared. IBM's foundry model lets competitors build on IBM's underused fabrication capacity, so both sides profit. Stakeholders should be identified and similar models explored to ease memory and chip prices in the mid to long term."],
+          ["7. Design Thinking", "Reflect before solving: more research, industry collaboration, and other exercises come first (Estes, 2025, p. 25). The shortage is as much one of design and innovation thinking as one of product."],
+          ["8. AI Reflection", "Dr. Gillespie used NotebookLM for research, found the first prompt weak, and refined it. He asked an AI assistant for one credible, independently verifiable source, then confirmed the Deloitte article himself. Claude helped identify that source and reviewed the paper against APA 7. Dr. Gillespie verified the source directly and approved every edit."],
+          ["9. Leadership Lesson", "Dr. Gillespie has often relied on years of experience, seniority and influence to drive solutions without first stepping back to see the whole picture. He plans to practice the pause more and to encourage others to do the same."],
+          ["10. Conclusion", "Starting with a solution may not be the best path. Removing barriers to communication and organizing ideas first should come before acting."]
+        ],
+        refs: [
+          "Estes, R. (2025). <i>Design thinking: A guide to innovation</i>. Twenty-First Century Books.",
+          "Kusters, J., Bhattacharjee, D., Ramachandran, K., & Stewart, D. (2026, July 28). Why memory chip crunch is greater than expected. <i>Deloitte Insights</i>.",
+          "Tidd, J., & Bessant, J. (2025). <i>Managing innovation: Integrating technological, market and organizational change</i> (8th ed.). Wiley."
+        ]
+      }
+    ];
+
+    function casesHTML() {
+      const arts = D.cases.map(c => `
+        <article class="jr-art">
+          <div class="jr-type">${esc(c.type)} · ${esc(c.course)} · ${esc(c.week)}</div>
+          <h3 class="jr-title">${esc(c.title)}</h3>
+          <p class="jr-by">Dr. Seth Gillespie</p>
+          <p class="jr-aff">Amberton University · ${esc(c.prof)} · ${esc(c.date)}</p>
+          <div class="jr-abs"><b>Abstract.</b>${esc(c.abstract)}</div>
+          <p class="jr-kw"><b>Keywords:</b> ${esc(c.keywords)}</p>
+          <details class="disclose">
+            <summary class="disclose-sum"><span>Read the full article</span><span class="disclose-chev" aria-hidden="true">⌄</span></summary>
+            <div class="disclose-body">
+              <div class="jr-body">
+                ${c.sections.map(s => `<h4>${esc(s[0])}</h4><p>${esc(s[1])}</p>`).join("")}
+              </div>
+              <div class="jr-refs"><strong>References</strong>${c.refs.map(r => `<p>${r}</p>`).join("")}</div>
+            </div>
+          </details>
+        </article>`).join("");
+      return `
+      <section class="block" id="journal"><div class="wrap">
+        <div class="sec-head">
+          <div class="sec-kicker">📓 Journal</div>
+          <h2 class="sec-title">Coursework, published like a journal.</h2>
+          <p class="sec-sub">Each paper from the program gets the journal treatment, one issue per term. Newest at the bottom.</p>
+        </div>
+        <div class="jr-banner"><span>The Applied AI Casebook</span><span>Vol. 1 · Fall 2026</span><span>Amberton University</span></div>
+        ${arts}
+        <div class="jr-soon">In the next issues: more Fall 2026 papers, and a final capstone case study at the end of the degree.</div>
+      </div></section>`;
+    }
+
     function render() {
       document.body.insertAdjacentHTML("afterbegin", navHTML());
       const app = document.getElementById("app");
@@ -1291,6 +1493,7 @@
         heroHTML() +
         overviewHTML() +
         curriculumHTML() +
+        casesHTML() +
         certHTML() +
         skillsMatrixHTML() +
         valueHTML() +
@@ -1301,6 +1504,17 @@
         </div></footer>`;
 
       wireTheme();
+      // Journal lives in its own tab: #journal shows only the journal, anything else shows the program page.
+      function route() {
+        const hash = location.hash || "";
+        const j = hash === "#journal";
+        document.body.classList.toggle("view-journal", j);
+        document.querySelectorAll(".nav-links a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === (j ? "#journal" : hash)));
+        if (j) { window.scrollTo(0, 0); }
+        else if (hash) { const t = document.querySelector(hash); if (t) t.scrollIntoView(); }
+      }
+      window.addEventListener("hashchange", route);
+      route();
       // Chart.js may arrive late (slow CDN / proxied network on GitHub Pages).
       // Poll for it instead of relying on a single load event that may have already fired.
       (function waitForChart(tries) {
