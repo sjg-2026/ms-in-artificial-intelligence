@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noai, noimageai">
-<title>MS in Applied AI · SECRET LEVEL</title>
+<title>MS in Applied AI · 8-bit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap">
 <style>
@@ -84,8 +84,8 @@ function type(el,html){clearInterval(typeTimer);const tmp=document.createElement
 const MENU=[['WORLD MAP','Your 12-level journey'],['STATUS','Level, health and gold'],['QUESTS','Every course, one by one'],['CLASSES','Jobs this degree unlocks'],['ITEMS','Case studies found along the way'],['OPTIONS','Sound on or off']];
 function go(s,keep){cur=s;if(!keep)sel=0;beep(520,.05);draw()}
 function draw(){
-if(cur==='title'){cab.innerHTML=`<div class="box y title"><div style="display:flex;justify-content:center;gap:14px;margin-bottom:18px">${COIN}${HERO}${HEART}</div><h1>MS IN<br>APPLIED AI</h1><div class="sub">SECRET LEVEL · ${esc(M.school).toUpperCase()}</div><p class="px blink" style="color:var(--g)">PRESS ENTER OR TAP START</p><div class="btns" style="justify-content:center"><button class="px" id="st">START</button></div></div><div class="foot">You found the secret 8-bit version. ↑↑↓↓←→←→BA</div>`;$('#st').onclick=()=>go('menu');return}
-if(cur==='menu'){cab.innerHTML=`<div class="box y"><h1 style="font-size:16px">MAIN MENU</h1><ul class="menu">${MENU.map((m,i)=>`<li data-i="${i}" class="${i===sel?'sel':''}">${m[0]}<small>${m[1]}</small></li>`).join('')}</ul></div><div class="foot"><a href="classic.html">Leave the game</a> · ↑ ↓ ENTER · ESC to go back</div>`;
+if(cur==='title'){cab.innerHTML=`<div class="box y title"><div style="display:flex;justify-content:center;gap:14px;margin-bottom:18px">${COIN}${HERO}${HEART}</div><h1>MS IN<br>APPLIED AI</h1><div class="sub">8-BIT EDITION · ${esc(M.school).toUpperCase()}</div><p class="px blink" style="color:var(--g)">PRESS ENTER OR TAP START</p><div class="btns" style="justify-content:center"><button class="px" id="st">START</button></div></div><div class="foot">Press ENTER to play. Use the bar below to switch editions.</div>`;$('#st').onclick=()=>go('menu');return}
+if(cur==='menu'){cab.innerHTML=`<div class="box y"><h1 style="font-size:16px">MAIN MENU</h1><ul class="menu">${MENU.map((m,i)=>`<li data-i="${i}" class="${i===sel?'sel':''}">${m[0]}<small>${m[1]}</small></li>`).join('')}</ul></div><div class="foot">↑ ↓ ENTER · ESC to go back</div>`;
 cab.querySelectorAll('.menu li').forEach(li=>li.onclick=()=>{sel=+li.dataset.i;enter()});return}
 if(cur==='map'){const act=C.findIndex(c=>c.status==='inProgress');cab.innerHTML=`<div class="box g"><h2>WORLD MAP</h2><div class="map" id="map">${C.map((c,i)=>`<div class="node ${c.status==='completed'?'d':c.status==='inProgress'?'n':'f'} ${i===nodeSel?'sel':''}" data-i="${i}">${i===act?`<div class="hero">${HERO}</div>`:''}<div class="sq">${c.status==='completed'?'✔':c.status==='inProgress'?'!':'?'}</div><em>LV${i+1}</em></div>`).join('')}</div></div><div class="box"><div class="say" id="say"></div></div><div class="btns"><button class="px" id="bk">BACK</button></div>`;
 const show=i=>{const c=C[i];nodeSel=i;cab.querySelectorAll('.node').forEach((n,j)=>n.classList.toggle('sel',j===i));type($('#say'),`<b>${esc(c.code)}</b> ${esc(c.title)}<br>${c.credits} credits · ${c.status==='completed'?'CLEARED':c.status==='inProgress'?'IN PROGRESS':'NEXT UP'}${c.term?' · '+esc(c.term):''}${c.dates&&!/not yet/i.test(c.dates)?'<br>'+esc(c.dates):''}`)};
@@ -110,5 +110,7 @@ if(cur==='map'){if(k==='ArrowRight'&&nodeSel<C.length-1){nodeSel++;draw()}if(k==
 function f(){x.fillStyle='#05050f';x.fillRect(0,0,W,H);for(const s of S){s.y+=s.s;if(s.y>H){s.y=0;s.x=Math.random()*W}x.fillStyle=s.c;x.fillRect(s.x|0,s.y|0,1,1)}if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(f)}f()})();
 draw();
 </script>
+<style>#vsw{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:40;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(20,22,32,.86);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);font:600 12px/1 -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);max-width:calc(100vw - 16px);overflow-x:auto}#vsw a{color:#c9cfe6;text-decoration:none;padding:8px 11px;border-radius:999px;white-space:nowrap;margin:0}#vsw a:hover{color:#fff;background:rgba(255,255,255,.12)}#vsw a.on{background:#fff;color:#111}@media print{#vsw{display:none}}</style>
+<script>(function(){var inV=/\/versions\//.test(location.pathname),r=inV?'../':'',v=inV?'':'versions/',f=location.pathname.split('/').pop()||'index.html';var L=[['Main',r+'index.html',inV?'':'on'],['Dynamic',v+'dynamic.html',f==='dynamic.html'?'on':''],['Classic',v+'classic.html',f==='classic.html'?'on':''],['Minimal',v+'minimal.html',f==='minimal.html'?'on':''],['8-bit',v+'8bit.html',f==='8bit.html'?'on':'']];var n=document.createElement('div');n.id='vsw';n.setAttribute('role','navigation');n.setAttribute('aria-label','Site version');n.innerHTML=L.map(function(x){return '<a class="'+x[2]+'" href="'+x[1]+'">'+x[0]+'</a>'}).join('');document.body.appendChild(n)})();</script>
 </body>
 </html>

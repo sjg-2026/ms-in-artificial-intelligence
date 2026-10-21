@@ -46,7 +46,8 @@ document.getElementById('app').innerHTML=`
 <h2>Case studies</h2>${DATA.cases.map(paper).join('')}
 <h2>Cost</h2><p>$${M.costPerCredit} per credit hour. $${(M.costPerCredit*M.creditHours).toLocaleString()} for the degree.</p>
 <footer><a href="${esc(M.sourceUrl)}">Program page</a> · <a href="${esc(M.repoUrl)}">GitHub</a> · ${esc(M.version)}</footer>`;
-(function(){const k=[38,38,40,40,37,39,37,39,66,65];let i=0;addEventListener('keydown',e=>{i=(e.keyCode===k[i])?i+1:0;if(i===k.length){location.href='secret-8bit.html'}})})();
 </script>
+<style>#vsw{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:40;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(20,22,32,.86);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);font:600 12px/1 -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);max-width:calc(100vw - 16px);overflow-x:auto}#vsw a{color:#c9cfe6;text-decoration:none;padding:8px 11px;border-radius:999px;white-space:nowrap;margin:0}#vsw a:hover{color:#fff;background:rgba(255,255,255,.12)}#vsw a.on{background:#fff;color:#111}@media print{#vsw{display:none}}</style>
+<script>(function(){var inV=/\/versions\//.test(location.pathname),r=inV?'../':'',v=inV?'':'versions/',f=location.pathname.split('/').pop()||'index.html';var L=[['Main',r+'index.html',inV?'':'on'],['Dynamic',v+'dynamic.html',f==='dynamic.html'?'on':''],['Classic',v+'classic.html',f==='classic.html'?'on':''],['Minimal',v+'minimal.html',f==='minimal.html'?'on':''],['8-bit',v+'8bit.html',f==='8bit.html'?'on':'']];var n=document.createElement('div');n.id='vsw';n.setAttribute('role','navigation');n.setAttribute('aria-label','Site version');n.innerHTML=L.map(function(x){return '<a class="'+x[2]+'" href="'+x[1]+'">'+x[0]+'</a>'}).join('');document.body.appendChild(n)})();</script>
 </body>
 </html>

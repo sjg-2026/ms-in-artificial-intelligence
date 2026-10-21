@@ -5,6 +5,12 @@ Versions are git-tagged — run `git tag -l 'v*'` to list all versions.
 
 ---
 
+## v9 — 2026-10-21 03:00
+**Author:** Seth Gillespie  
+**Change:** feat: version switcher bar (Main, Dynamic, Classic, Minimal, 8-bit) on every page; the 8-bit edition is now public at versions/8bit.html and the secret code is removed
+
+---
+
 ## v8 — 2026-10-21 02:50
 **Author:** Seth Gillespie  
 **Change:** feat: four alternate editions in versions/ (Dynamic, Classic, Minimal) plus an unlisted secret 8-bit edition opened with the Konami code; all noindex
