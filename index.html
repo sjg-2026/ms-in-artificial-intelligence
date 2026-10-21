@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<meta name="robots" content="noai, noimageai">
+<meta name="googlebot" content="noarchive">
 <!-- build: v5 · 2026-06-21T15-03Z -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1480,7 +1482,7 @@ body:not(.view-journal) #journal{display:none !important}
           <span class="jr-idx-go" aria-hidden="true">›</span>
         </button></li>`).join("");
       const arts = D.cases.map((c, k) => `
-        <article class="jr-art" id="jr-art-${k}" hidden>
+        <article class="jr-art" id="jr-art-${k}" data-nosnippet hidden>
           <div class="jr-pager">
             <button type="button" class="jr-pg" onclick="jrOpen(${k - 1})" ${k === 0 ? "disabled" : ""}>‹ Previous</button>
             <button type="button" class="jr-pg jr-pg-idx" onclick="jrIndex()">Index</button>
