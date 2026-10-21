@@ -564,7 +564,7 @@ body:not(.view-journal) #journal{display:none !important}
 .jr-idx-t strong{font-size:17px;line-height:1.3}
 .jr-idx-t em{font-size:13px;color:var(--text-secondary)}
 .jr-idx-go{flex:none;font-size:24px;color:var(--text-secondary)}
-.jr-pager{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding-top:14px;border-top:1px solid rgba(128,128,128,.3)}
+.jr-pager{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid rgba(128,128,128,.3)}
 .jr-pg{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid rgba(128,128,128,.4);font:600 14px/1 -apple-system,system-ui,sans-serif;color:var(--text-primary)}
 .jr-pg:hover:not([disabled]){background:color-mix(in srgb,var(--accent) 10%,transparent)}
 .jr-pg[disabled]{opacity:.35;cursor:default}
@@ -1481,6 +1481,11 @@ body:not(.view-journal) #journal{display:none !important}
         </button></li>`).join("");
       const arts = D.cases.map((c, k) => `
         <article class="jr-art" id="jr-art-${k}" hidden>
+          <div class="jr-pager">
+            <button type="button" class="jr-pg" onclick="jrOpen(${k - 1})" ${k === 0 ? "disabled" : ""}>‹ Previous</button>
+            <button type="button" class="jr-pg jr-pg-idx" onclick="jrIndex()">Index</button>
+            <button type="button" class="jr-pg" onclick="jrOpen(${k + 1})" ${k === n - 1 ? "disabled" : ""}>Next ›</button>
+          </div>
           <div class="jr-type">${esc(c.type)} · ${esc(c.course)}</div>
           <h3 class="jr-title">${esc(c.title)}</h3>
           <p class="jr-by">Dr. Seth Gillespie</p>
@@ -1491,11 +1496,6 @@ body:not(.view-journal) #journal{display:none !important}
             ${c.sections.map(s => `<h4>${esc(s[0])}</h4><p>${esc(s[1])}</p>`).join("")}
           </div>
           <div class="jr-refs"><strong>References</strong>${c.refs.map(r => `<p>${r}</p>`).join("")}</div>
-          <div class="jr-pager">
-            <button type="button" class="jr-pg" onclick="jrOpen(${k - 1})" ${k === 0 ? "disabled" : ""}>‹ Previous</button>
-            <button type="button" class="jr-pg jr-pg-idx" onclick="jrIndex()">Index</button>
-            <button type="button" class="jr-pg" onclick="jrOpen(${k + 1})" ${k === n - 1 ? "disabled" : ""}>Next ›</button>
-          </div>
         </article>`).join("");
       return `
       <section class="block" id="journal"><div class="wrap">
