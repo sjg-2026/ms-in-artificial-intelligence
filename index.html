@@ -553,6 +553,24 @@ body.view-journal #app > *:not(#journal):not(footer){display:none !important}
 body:not(.view-journal) #journal{display:none !important}
 .nav-links a.active{color:var(--text-primary);font-weight:600}
 </style>
+<style>
+.jr-idx-h{margin:0 0 8px;font:700 12px/1 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--text-secondary)}
+.jr-idx{list-style:none;margin:0 0 16px;padding:0;border-top:1px solid rgba(128,128,128,.3)}
+.jr-idx li{border-bottom:1px solid rgba(128,128,128,.3)}
+.jr-idx-btn{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:14px;padding:13px 6px;cursor:pointer;font-family:Georgia,'Times New Roman',serif}
+.jr-idx-btn:hover,.jr-idx-btn:focus-visible{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.jr-idx-n{flex:none;width:26px;font-size:20px;color:var(--accent);text-align:right}
+.jr-idx-t{flex:1;display:flex;flex-direction:column;gap:2px}
+.jr-idx-t strong{font-size:17px;line-height:1.3}
+.jr-idx-t em{font-size:13px;color:var(--text-secondary)}
+.jr-idx-go{flex:none;font-size:24px;color:var(--text-secondary)}
+.jr-pager{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding-top:14px;border-top:1px solid rgba(128,128,128,.3)}
+.jr-pg{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid rgba(128,128,128,.4);font:600 14px/1 -apple-system,system-ui,sans-serif;color:var(--text-primary)}
+.jr-pg:hover:not([disabled]){background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.jr-pg[disabled]{opacity:.35;cursor:default}
+.jr-pg-idx{border-color:transparent;color:var(--text-secondary)}
+.jr-art[hidden],#jr-index[hidden]{display:none !important}
+</style>
 </head>
 <body>
   <!-- ============ APP MOUNTS HERE ============ -->
@@ -1454,36 +1472,61 @@ body:not(.view-journal) #journal{display:none !important}
     ];
 
     function casesHTML() {
-      const arts = D.cases.map(c => `
-        <article class="jr-art">
-          <div class="jr-type">${esc(c.type)} · ${esc(c.course)} · ${esc(c.week)}</div>
+      const n = D.cases.length;
+      const idx = D.cases.map((c, k) => `
+        <li><button type="button" class="jr-idx-btn" onclick="jrOpen(${k})">
+          <span class="jr-idx-n">${k + 1}</span>
+          <span class="jr-idx-t"><strong>${esc(c.title)}</strong><em>${esc(c.type)} · ${esc(c.course)} · ${esc(c.date)}</em></span>
+          <span class="jr-idx-go" aria-hidden="true">›</span>
+        </button></li>`).join("");
+      const arts = D.cases.map((c, k) => `
+        <article class="jr-art" id="jr-art-${k}" hidden>
+          <div class="jr-type">${esc(c.type)} · ${esc(c.course)}</div>
           <h3 class="jr-title">${esc(c.title)}</h3>
           <p class="jr-by">Dr. Seth Gillespie</p>
           <p class="jr-aff">Amberton University · ${esc(c.prof)} · ${esc(c.date)}</p>
           <div class="jr-abs"><b>Abstract.</b>${esc(c.abstract)}</div>
           <p class="jr-kw"><b>Keywords:</b> ${esc(c.keywords)}</p>
-          <details class="disclose">
-            <summary class="disclose-sum"><span>Read the full article</span><span class="disclose-chev" aria-hidden="true">⌄</span></summary>
-            <div class="disclose-body">
-              <div class="jr-body">
-                ${c.sections.map(s => `<h4>${esc(s[0])}</h4><p>${esc(s[1])}</p>`).join("")}
-              </div>
-              <div class="jr-refs"><strong>References</strong>${c.refs.map(r => `<p>${r}</p>`).join("")}</div>
-            </div>
-          </details>
+          <div class="jr-body">
+            ${c.sections.map(s => `<h4>${esc(s[0])}</h4><p>${esc(s[1])}</p>`).join("")}
+          </div>
+          <div class="jr-refs"><strong>References</strong>${c.refs.map(r => `<p>${r}</p>`).join("")}</div>
+          <div class="jr-pager">
+            <button type="button" class="jr-pg" onclick="jrOpen(${k - 1})" ${k === 0 ? "disabled" : ""}>‹ Previous</button>
+            <button type="button" class="jr-pg jr-pg-idx" onclick="jrIndex()">Index</button>
+            <button type="button" class="jr-pg" onclick="jrOpen(${k + 1})" ${k === n - 1 ? "disabled" : ""}>Next ›</button>
+          </div>
         </article>`).join("");
       return `
       <section class="block" id="journal"><div class="wrap">
         <div class="sec-head">
           <div class="sec-kicker">📓 Journal</div>
           <h2 class="sec-title">Coursework, published like a journal.</h2>
-          <p class="sec-sub">Each paper from the program gets the journal treatment, one issue per term. Newest at the bottom.</p>
+          <p class="sec-sub">Each paper from the program gets the journal treatment, one issue per term.</p>
         </div>
         <div class="jr-banner"><span>The Applied AI Casebook</span><span>Vol. 1 · Fall 2026</span><span>Amberton University</span></div>
+        <div id="jr-index">
+          <p class="jr-idx-h">In this issue</p>
+          <ol class="jr-idx">${idx}</ol>
+          <div class="jr-soon">In the next issues: more Fall 2026 papers, and a final capstone case study at the end of the degree.</div>
+        </div>
         ${arts}
-        <div class="jr-soon">In the next issues: more Fall 2026 papers, and a final capstone case study at the end of the degree.</div>
       </div></section>`;
     }
+
+    function jrIndex() {
+      document.getElementById("jr-index").hidden = false;
+      document.querySelectorAll(".jr-art").forEach(a => a.hidden = true);
+      document.getElementById("journal").scrollIntoView();
+    }
+    function jrOpen(k) {
+      const arts = document.querySelectorAll(".jr-art");
+      if (k < 0 || k >= arts.length) return;
+      document.getElementById("jr-index").hidden = true;
+      arts.forEach((a, i) => a.hidden = i !== k);
+      document.getElementById("journal").scrollIntoView();
+    }
+    window.jrIndex = jrIndex; window.jrOpen = jrOpen;
 
     function render() {
       document.body.insertAdjacentHTML("afterbegin", navHTML());
